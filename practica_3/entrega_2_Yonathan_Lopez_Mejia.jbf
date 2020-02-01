@@ -1303,7 +1303,7 @@
     </blocks>
   </flowchart>
   <flowchart name="practica_3_1">
-    <canvas interval="200" posX="270.0" posY="150.0" zoom="4"/>
+    <canvas interval="200" posX="270.0" posY="-200.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -1397,7 +1397,7 @@
     </blocks>
   </flowchart>
   <flowchart name="practica_3_2">
-    <canvas interval="200" posX="18.483952" posY="-160.0" zoom="3"/>
+    <canvas interval="200" posX="90.24006" posY="-30.0" zoom="5"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -1528,7 +1528,7 @@
     </blocks>
   </flowchart>
   <flowchart name="practica_3_3">
-    <canvas interval="200" posX="0.0" posY="130.0" zoom="4"/>
+    <canvas interval="200" posX="54.861126" posY="10.0" zoom="4"/>
     <blocks>
       <block id="0" name="Start" type="START">
         <options displayComment="true"/>
@@ -1573,7 +1573,7 @@
       <block id="6" type="CPU">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="70.0"/>
-        <content>is_palindrome = true;	i = 0;	size = word.length</content>
+        <content>is_palindrome = true;	i = 0;	size = word.length;	word = word.toLowerCase()</content>
         <connect ID="10"/>
       </block>
       <block id="7" type="DECISION">
@@ -1592,7 +1592,7 @@
       </block>
       <block id="9" type="CPU">
         <options displayComment="false"/>
-        <visual color="255 255 0" posX="0.0" posY="460.0"/>
+        <visual color="255 255 0" posX="-200.0" posY="460.0"/>
         <content>is_palindrome = false;	i = size</content>
         <connect ID="10"/>
       </block>
