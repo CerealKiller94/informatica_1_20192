@@ -1,3 +1,0 @@
-
-while True:
-    numero = int(input('Digite un número para saber si es perfecto o no: '))

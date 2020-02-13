@@ -1,0 +1,2 @@
+while True:
+    horas_trabajadas = int(input('Digite la cantidad de horas trabajadas'))

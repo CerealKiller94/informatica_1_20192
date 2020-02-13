@@ -4,6 +4,41 @@
 Created on Thu Jan 30 09:05:50 2020
 
 @author: Yonathan Lopez Mejia
+
+Nombre: Yonathan López Mejia
+Grupo: 10
+Documento: 1017220389
+Enunciado: Una máquina 
+dispensadora de productos 
+requiere un algoritmo para calcular las devueltas en monedas. 
+El objetivo del algoritmo es que 
+dada una cantidad a devolver se 
+debe calcular la combinación 
+que genere la mínima cantidad 
+de monedas, utilizando denominaciones de $1.000, $500, $200, $100 y $50. 
+Si es imposible lograr la 
+cantidad exacta, el sistema deberá decir lo que resta para lograrla.
+
+Análisis: 
+Entrada:
+cambio: esta variable representa
+cuánto es el valor a devolver
+
+salidas:
+moneda1000: el número de 
+monedas de 1000 a devolver
+
+moneda500: el número de 
+monedas de 500 a devolver
+
+moneda200: el número de
+monedas de 200 a devolver
+
+moneda100: el número de
+monedas de 100 a devolver
+
+moneda50: el numero de 
+monedas de 50 a devolver
 """
 
 moneda1000 = 0

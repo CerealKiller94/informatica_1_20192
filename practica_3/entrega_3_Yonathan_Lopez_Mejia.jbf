@@ -92,7 +92,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio1">
-    <canvas interval="200" posX="120.0" posY="50.0" zoom="4"/>
+    <canvas interval="200" posX="120.0" posY="100.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -161,7 +161,7 @@
       <block id="10" type="COMMENT">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="-510.0" posY="-210.0"/>
-        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Dado el valor del lado de un triángulo equilátero, ;	haga un algoritmo que calcule su perímetro, su altura ;	y su área.;	;	Análisis:;	Entradas: lado (numero que respresenta el valor del lado del triángulo);	;	salida: perimetro (el perímetro del triángulo);	altura (la altura del triángulo);	area (el área del triángulo);	</content>
+        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Dado el valor del ;	lado de un triángulo ;	equilátero, ;	haga un algoritmo que calcule su perímetro, su altura ;	y su área.;	;	Análisis:;	Entradas: lado (numero que ;	representa el valor del lado ;	del triángulo);	;	salida: perimetro (el perímetro del triángulo);	altura (la altura del triángulo);	area (el área del triángulo);	</content>
       </block>
       <block id="11" type="JUMP">
         <options displayComment="false"/>
@@ -233,7 +233,7 @@
       <block id="9" type="COMMENT">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="-560.0" posY="-50.0"/>
-        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Haga un algoritmo que convierta de pulgadas a centímetros.;	;	Análisis:;	Entradas: pulgadas (numero ;	que representa las pulgadas a ;	convertir);	;	salida: centimetros (el valor en centímetros de las pulgadas ;	usando los valores del SI);	</content>
+        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Haga un algoritmo que convierta de pulgadas a centímetros.;	;	Análisis:;	Entradas: pulgadas (numero ;	que representa las pulgadas a ;	convertir);	;	salida: centimetros (el valor ;	en centímetros de las ;	pulgadas ;	usando los valores del SI);	</content>
       </block>
       <block id="10" type="JUMP">
         <options displayComment="false"/>
@@ -564,12 +564,12 @@
       <block id="8" type="COMMENT">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="-580.0" posY="-200.0"/>
-        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Diseñe un algoritmo que lea un número entero y determine si es par o impar.;	;	Análisis: ;	Entradas: numero (numero a validar);	;	salida: respuesta (contiene el mensaje de si es o no par)</content>
+        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Diseñe un ;	algoritmo que lea un número entero y determine si es par ;	o impar.;	;	Análisis: ;	Entradas: numero (numero a ;	validar);	;	salida: respuesta (contiene el mensaje de si es o no par)</content>
       </block>
     </blocks>
   </flowchart>
   <flowchart name="ejercicio7">
-    <canvas interval="200" posX="-250.0" posY="-40.0" zoom="4"/>
+    <canvas interval="200" posX="360.0" posY="-190.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -689,7 +689,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio8">
-    <canvas interval="200" posX="-120.0" posY="-560.0" zoom="4"/>
+    <canvas interval="200" posX="800.0" posY="-200.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -1158,7 +1158,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio12">
-    <canvas interval="200" posX="-40.0" posY="-84.0" zoom="5"/>
+    <canvas interval="200" posX="93.791664" posY="-155.5" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -1333,7 +1333,7 @@
     </blocks>
   </flowchart>
   <flowchart name="practica_3_1">
-    <canvas interval="200" posX="270.0" posY="-120.0" zoom="4"/>
+    <canvas interval="200" posX="178.15973" posY="-30.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -1558,7 +1558,7 @@
     </blocks>
   </flowchart>
   <flowchart name="practica_3_3">
-    <canvas interval="200" posX="54.861126" posY="-190.0" zoom="4"/>
+    <canvas interval="200" posX="54.861126" posY="50.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -1664,103 +1664,103 @@
       <block id="16" type="COMMENT">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="390.0" posY="-20.0"/>
-        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Haga unprograma que determine si una ;	palabra ingresada ;	por el usuario es palíndroma ;	o no. Utilice la instrucción ;	while.;	;	;	Análisis:;	Entradas;	word: es la palabra a validar;	;	Auxiliares:;	i: es la variable del ciclo;	con la que se accede los;	elementos del string;	is_palindrome: es una variable;	booleana que dice si la;	palabra es o no palindroma;	size: almacena el tamaño;	del string;	;	;	salida: ;	mensaje que indica si;	la palabra ingresada es o no;	palindroma</content>
+        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Haga un programa que determine si una ;	palabra ingresada ;	por el usuario es palíndroma ;	o no. Utilice la instrucción ;	while.;	;	;	Análisis:;	Entradas;	word: es la palabra a validar;	;	Auxiliares:;	i: es la variable del ciclo;	con la que se accede los;	elementos del string;	is_palindrome: es una variable;	booleana que dice si la;	palabra es o no palindroma;	size: almacena el tamaño;	del string;	;	;	salida: ;	mensaje que indica si;	la palabra ingresada es o no;	palindroma</content>
       </block>
     </blocks>
   </flowchart>
   <flowchart name="practica_3_4">
-    <canvas interval="200" posX="320.0" posY="-20.0" zoom="4"/>
+    <canvas interval="200" posX="320.0" posY="210.0" zoom="4"/>
     <blocks>
-      <block id="0" name="Start" type="START">
+      <block id="1" name="Start" type="START">
         <options displayComment="true"/>
         <visual color="255 255 0" posX="0.0" posY="-240.0"/>
         <comment>practica_3_4</comment>
-        <connect ID="2"/>
+        <connect ID="3"/>
       </block>
-      <block id="1" type="RETURN">
+      <block id="2" type="RETURN">
         <options displayComment="true"/>
         <visual color="255 255 0" posX="380.0" posY="440.0"/>
         <comment>End</comment>
       </block>
-      <block id="2" type="IO">
+      <block id="3" type="IO">
         <options displayComment="true"/>
         <visual color="255 255 0" posX="0.0" posY="-140.0"/>
         <content>word=Read("Escriba una palabra");	;	</content>
         <comment>"Escriba una palabra";	word ;	</comment>
-        <connect ID="4"/>
+        <connect ID="5"/>
         <io array="0" inputType="1" ioType="2" message="Escriba una palabra" variable="word"/>
       </block>
-      <block id="3" type="CPU">
+      <block id="4" type="CPU">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="270.0"/>
         <content>letters = 'abcdefghijklmnopqrstuvwxyz'</content>
-        <connect ID="9"/>
+        <connect ID="10"/>
       </block>
-      <block id="4" type="DECISION">
+      <block id="5" type="DECISION">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="-40.0"/>
         <content>word.length &gt; 1</content>
-        <connect ID="7" value="true"/>
-        <connect ID="5" value="false"/>
+        <connect ID="8" value="true"/>
+        <connect ID="6" value="false"/>
       </block>
-      <block id="5" type="IO">
+      <block id="6" type="IO">
         <options displayComment="true"/>
         <visual color="255 255 0" posX="-330.0" posY="-40.0"/>
         <content>Writeln("Escriba una palabra de más de una letra");	;	</content>
         <comment>"Escriba una palabra de más de una letra" </comment>
-        <connect ID="2"/>
+        <connect ID="3"/>
         <io ioType="1" message="Escriba una palabra de más de una letra" messageSuffix="" newLine="true" variable=""/>
       </block>
-      <block id="6" type="DECISION">
+      <block id="7" type="DECISION">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="170.0"/>
         <content>number &gt;= 0 &amp;&amp; number &lt; 26</content>
-        <connect ID="3" value="true"/>
-        <connect ID="8" value="false"/>
+        <connect ID="4" value="true"/>
+        <connect ID="9" value="false"/>
       </block>
-      <block id="7" type="IO">
+      <block id="8" type="IO">
         <options displayComment="true"/>
         <visual color="255 255 0" posX="0.0" posY="70.0"/>
         <content>number=ReadNumber("Digite un número menor que 26");	;	</content>
         <comment>"Digite un número menor que 26";	number ;	</comment>
-        <connect ID="6"/>
+        <connect ID="7"/>
         <io array="0" inputType="0" ioType="2" message="Digite un número menor que 26" variable="number"/>
       </block>
-      <block id="8" type="IO">
+      <block id="9" type="IO">
         <options displayComment="true"/>
         <visual color="255 255 0" posX="-320.0" posY="170.0"/>
         <content>Writeln("Escriba un número positivo menor que 26");	;	</content>
         <comment>"Escriba un número positivo menor que 26" </comment>
-        <connect ID="7"/>
+        <connect ID="8"/>
         <io ioType="1" message="Escriba un número positivo menor que 26" messageSuffix="" newLine="true" variable=""/>
       </block>
-      <block id="9" type="CPU">
+      <block id="10" type="CPU">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="350.0"/>
         <content>i = 0;	index = 0;	new_word = ''</content>
         <connect ID="16"/>
       </block>
-      <block id="10" type="DECISION">
+      <block id="11" type="DECISION">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="440.0"/>
         <content>i &lt; word.length</content>
-        <connect ID="11" value="true"/>
-        <connect ID="19" value="false"/>
+        <connect ID="12" value="true"/>
+        <connect ID="17" value="false"/>
       </block>
-      <block id="11" type="CPU">
+      <block id="12" type="CPU">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="550.0"/>
         <content>index = letters.indexOf(word[i]);	index += number</content>
-        <connect ID="12"/>
+        <connect ID="13"/>
       </block>
-      <block id="12" type="DECISION">
+      <block id="13" type="DECISION">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="0.0" posY="640.0"/>
         <content>index &gt; 25</content>
-        <connect ID="13" value="true"/>
+        <connect ID="14" value="true"/>
         <connect ID="15" value="false"/>
       </block>
-      <block id="13" type="CPU">
+      <block id="14" type="CPU">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="-270.0" posY="640.0"/>
         <content>index -= 26;	</content>
@@ -1776,20 +1776,316 @@
         <options displayComment="false"/>
         <visual color="255 255 0" posX="1.0" posY="393.0"/>
         <content> </content>
-        <connect ID="10"/>
+        <connect ID="11"/>
       </block>
-      <block id="19" type="IO">
+      <block id="17" type="IO">
         <options displayComment="true"/>
         <visual color="255 255 0" posX="210.0" posY="440.0"/>
         <content>Writeln("" + (getValueOf(new_word)));	;	</content>
         <comment>new_word</comment>
-        <connect ID="1"/>
+        <connect ID="2"/>
         <io ioType="1" message="" messageSuffix="" newLine="true" variable="new_word"/>
       </block>
-      <block id="20" type="COMMENT">
+      <block id="18" type="COMMENT">
         <options displayComment="false"/>
         <visual color="255 255 0" posX="-750.0" posY="-140.0"/>
         <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Enunciado: Reciba una ;	palabra del usuario y un ;	número entero menor ;	que 26. El programa debe ;	cambiar cada letra por la ;	que le corresponda al dar ;	saltos en el alfabeto de ;	acuerdo al número ;	especificado por el usuario.;	La nueva palabra codificada ;	deberá ser mostrada en ;	pantalla.;	;	;	Análisis:;	Entradas;	word: es la palabra a ;	codificar;	number: es el número;	positivo menor que 26;	;	Auxiliares:;	i: es la variable del ciclo;	con la que se accede a;	cada letra de la palabra;	;	index: es la variable que;	almacena la posicion de;	cada letra de la palabra;	en el abecedario.;	;	letters: son las letras del;	abecedario;	;	salida: ;	new_word: es la nueva ;	palabra codificada según;	las reglas del enunciado</content>
+      </block>
+    </blocks>
+  </flowchart>
+  <flowchart name="practica_3_5">
+    <canvas interval="200" posX="0.0" posY="-110.0" zoom="4"/>
+    <blocks>
+      <block id="0" name="Start" type="START">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="100.0" posY="-230.0"/>
+        <comment>practica_3_5</comment>
+        <connect ID="3"/>
+      </block>
+      <block id="1" type="RETURN">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="100.0" posY="220.0"/>
+        <comment>End</comment>
+      </block>
+      <block id="2" type="COMMENT">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-410.0" posY="-130.0"/>
+        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Enunciado: Haga un ;	algoritmo que determine ;	si un string, ingresado por el ;	usuario,  es un documento ;	válido. ;	Un documento válido tiene 10 dígitos (solo números).;	Análisis:;	* Entradas: documento ;	(variable que almacena el ;	string a validar);	* Salidas: mensaje que dice si el documento es válido o ;	no</content>
+      </block>
+      <block id="3" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="100.0" posY="-170.0"/>
+        <content>documento=Read("Escriba el documento a validar");	;	</content>
+        <comment>"Escriba el documento a validar";	documento ;	</comment>
+        <connect ID="4"/>
+        <io array="0" inputType="1" ioType="2" message="Escriba el documento a validar" variable="documento"/>
+      </block>
+      <block id="4" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="100.0" posY="-20.0"/>
+        <content>documento.length == 10 &amp;&amp; ;	!isNaN(documento)</content>
+        <connect ID="5" value="true"/>
+        <connect ID="6" value="false"/>
+      </block>
+      <block id="5" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="100.0" posY="130.0"/>
+        <content>Writeln("Documento válido");	;	</content>
+        <comment>"Documento válido" </comment>
+        <connect ID="1"/>
+        <io ioType="1" message="Documento válido" messageSuffix="" newLine="true" variable=""/>
+      </block>
+      <block id="6" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="450.0" posY="100.0"/>
+        <content>Writeln("Documento no válido");	;	</content>
+        <comment>"Documento no válido" </comment>
+        <connect ID="1"/>
+        <io ioType="1" message="Documento no válido" messageSuffix="" newLine="true" variable=""/>
+      </block>
+    </blocks>
+  </flowchart>
+  <flowchart name="practica_3_6">
+    <canvas interval="200" posX="-270.0" posY="110.0" zoom="4"/>
+    <blocks>
+      <block id="0" name="Start" type="START">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="0.0" posY="-210.0"/>
+        <comment>practica_3_6</comment>
+        <connect ID="2"/>
+      </block>
+      <block id="1" type="RETURN">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="0.0" posY="450.0"/>
+        <comment>End</comment>
+      </block>
+      <block id="2" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="0.0" posY="-130.0"/>
+        <content>anho=ReadNumber("Digite el año a validar");	;	</content>
+        <comment>"Digite el año a validar";	anho ;	</comment>
+        <connect ID="5"/>
+        <io array="0" inputType="0" ioType="2" message="Digite el año a validar" variable="anho"/>
+      </block>
+      <block id="5" type="CPU">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="0.0" posY="-40.0"/>
+        <content>es_bisiesto = false</content>
+        <connect ID="7"/>
+      </block>
+      <block id="7" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="0.0" posY="60.0"/>
+        <content>anho % 4 == 0</content>
+        <connect ID="8" value="true"/>
+        <connect ID="9" value="false"/>
+      </block>
+      <block id="8" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="230.0" posY="60.0"/>
+        <content>anho % 100 == 0</content>
+        <connect ID="12" value="true"/>
+        <connect ID="13" value="false"/>
+      </block>
+      <block id="9" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="0.0" posY="310.0"/>
+        <content>es_bisiesto</content>
+        <connect ID="10" value="true"/>
+        <connect ID="11" value="false"/>
+      </block>
+      <block id="10" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="-210.0" posY="370.0"/>
+        <content>Writeln("El año " + (getValueOf(anho))+" es bisiesto");	;	</content>
+        <comment>"El año " +anho+ " es bisiesto" </comment>
+        <connect ID="1"/>
+        <io ioType="1" message="El año " messageSuffix=" es bisiesto" newLine="true" variable="anho"/>
+      </block>
+      <block id="11" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="230.0" posY="380.0"/>
+        <content>Writeln("El año: " + (getValueOf(anho))+" no es bisiesto");	;	</content>
+        <comment>"El año: " +anho+ " no es bisiesto" </comment>
+        <connect ID="1"/>
+        <io ioType="1" message="El año: " messageSuffix=" no es bisiesto" newLine="true" variable="anho"/>
+      </block>
+      <block id="12" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="440.0" posY="60.0"/>
+        <content>anho % 400 == 0</content>
+        <connect ID="13" value="true"/>
+        <connect ID="9" value="false"/>
+      </block>
+      <block id="13" type="CPU">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="230.0" posY="170.0"/>
+        <content>es_bisiesto = true</content>
+        <connect ID="9"/>
+      </block>
+      <block id="14" type="COMMENT">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-560.0" posY="-170.0"/>
+        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Enunciado: Haga un algoritmo que determine si un año es ;	bisiesto o no;	Análisis:;	* Entradas: anho ;	(Variable entera que ;	almacena el año a validar);	* Salidas: mensaje que dice si un año es bisiesto o no;	* Auxiliares: es_bisiesto ;	(variable booleana que ;	almacena True si el año es ;	bisiesto)</content>
+      </block>
+    </blocks>
+  </flowchart>
+  <flowchart name="practica_3_7">
+    <canvas interval="200" posX="-240.0" posY="190.0" zoom="4"/>
+    <blocks>
+      <block id="1" name="Start" type="START">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="0.0" posY="-260.0"/>
+        <comment>practica_3_7</comment>
+        <connect ID="3"/>
+      </block>
+      <block id="2" type="RETURN">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="-440.0" posY="330.0"/>
+        <comment>End</comment>
+      </block>
+      <block id="3" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="0.0" posY="-190.0"/>
+        <content>fecha=Read("Digite la fecha en formato yyyy-mm-dd");	;	</content>
+        <comment>"Digite la fecha en formato yyyy-mm-dd";	fecha ;	</comment>
+        <connect ID="4"/>
+        <io array="0" inputType="1" ioType="2" message="Digite la fecha en formato yyyy-mm-dd" variable="fecha"/>
+      </block>
+      <block id="4" type="CPU">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="0.0" posY="-110.0"/>
+        <content>contador_guiones = 0;	valida = false;	i = 0;	size = fecha.length</content>
+        <connect ID="5"/>
+      </block>
+      <block id="5" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="0.0" posY="-10.0"/>
+        <content>i &lt; size</content>
+        <connect ID="6" value="true"/>
+        <connect ID="9" value="false"/>
+      </block>
+      <block id="6" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="0.0" posY="120.0"/>
+        <content>fecha[i] == '-'</content>
+        <connect ID="7" value="true"/>
+        <connect ID="8" value="false"/>
+      </block>
+      <block id="7" type="CPU">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="110.0" posY="230.0"/>
+        <content>contador_guiones += 1</content>
+        <connect ID="8"/>
+      </block>
+      <block id="8" type="CPU">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="190.0" posY="120.0"/>
+        <content>i += 1</content>
+        <connect ID="5"/>
+      </block>
+      <block id="9" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-230.0" posY="-10.0"/>
+        <content>contador_guiones == 2</content>
+        <connect ID="10" value="true"/>
+        <connect ID="11" value="false"/>
+      </block>
+      <block id="10" type="CPU">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-550.0" posY="-10.0"/>
+        <content>anho = fecha.split('-')[0];	mes = fecha.split('-')[1];	dia = fecha.split('-')[2]</content>
+        <connect ID="19"/>
+      </block>
+      <block id="11" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-230.0" posY="190.0"/>
+        <content>valida</content>
+        <connect ID="14" value="true"/>
+        <connect ID="15" value="false"/>
+      </block>
+      <block id="14" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="-570.0" posY="170.0"/>
+        <content>Writeln("La fecha " + (getValueOf(fecha))+" es valida");	;	</content>
+        <comment>"La fecha " +fecha+ " es valida" </comment>
+        <connect ID="2"/>
+        <io ioType="1" message="La fecha " messageSuffix=" es valida" newLine="true" variable="fecha"/>
+      </block>
+      <block id="15" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="-230.0" posY="260.0"/>
+        <content>Writeln("La fecha " + (getValueOf(fecha))+" no es valida");	;	</content>
+        <comment>"La fecha " +fecha+ " no es valida" </comment>
+        <connect ID="2"/>
+        <io ioType="1" message="La fecha " messageSuffix=" no es valida" newLine="true" variable="fecha"/>
+      </block>
+      <block id="19" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-780.0" posY="-10.0"/>
+        <content>anho &gt;= 0</content>
+        <connect ID="20" value="true"/>
+        <connect ID="11" value="false"/>
+      </block>
+      <block id="20" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1070.0" posY="100.0"/>
+        <content>(mes == 1 || mes == 3 || ;	mes == 5 || mes == 7 || ;	mes == 8 || mes == 10 || ;	mes == 12) &amp;&amp; ;	(dia &lt;= 31)</content>
+        <connect ID="21" value="true"/>
+        <connect ID="22" value="false"/>
+      </block>
+      <block id="21" type="CPU">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1070.0" posY="270.0"/>
+        <content>valida = true</content>
+        <connect ID="11"/>
+      </block>
+      <block id="22" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1400.0" posY="100.0"/>
+        <content>(mes == 4 || mes == 6 || ;	mes == 9 || mes == 11) ;	&amp;&amp; (dia &gt;= 1 &amp;&amp; dia &lt;= 30)</content>
+        <connect ID="21" value="true"/>
+        <connect ID="23" value="false"/>
+      </block>
+      <block id="23" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1400.0" posY="250.0"/>
+        <content>mes == 2 &amp;&amp; dia == 29</content>
+        <connect ID="24" value="true"/>
+        <connect ID="28" value="false"/>
+      </block>
+      <block id="24" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1400.0" posY="350.0"/>
+        <content>anho % 4 == 0</content>
+        <connect ID="25" value="true"/>
+        <connect ID="11" value="false"/>
+      </block>
+      <block id="25" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1400.0" posY="460.0"/>
+        <content>anho % 100 == 0</content>
+        <connect ID="26" value="true"/>
+        <connect ID="21" value="false"/>
+      </block>
+      <block id="26" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1130.0" posY="460.0"/>
+        <content>anho % 400 == 0</content>
+        <connect ID="21" value="true"/>
+        <connect ID="11" value="false"/>
+      </block>
+      <block id="28" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="-1710.0" posY="270.0"/>
+        <content>mes == 2 &amp;&amp; (1 &lt;= dia &amp;&amp; dia &lt;= 28)</content>
+        <connect ID="21" value="true"/>
+        <connect ID="11" value="false"/>
+      </block>
+      <block id="30" type="COMMENT">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="510.0" posY="-150.0"/>
+        <content>Nombre: Yonathan López Mejia;	Grupo: 10;	Documento: 1017220389;	Haga un algoritmo que, ;	dado un string ingresado por el usuario, determine si es ;	una fecha válida o no. ;	La fecha válida debe cumplir ;	con el formato "yyyy-mm-dd". ;	Por ejemplo:;	;	* 2010-12-12 es válida;	* 2000-1-1 es válida;	* 20-12 no es válida;	* 2010/23-12 no es válida;	* 220033 no es válida;	* 2010-12-32 no es válida;	* 2016-2-29  es válida;	* 2019-2-29 no es válida ;	(no es año bisiesto).;	Análisis:;	* fecha:  (variable que almacena el string tipo fecha a validar);	* Salidas: mensaje que dice ;	si la fecha es válida o no;	* auxiliares: contador_guiones(variable que valida que la ;	cadena tenga exactamente ;	2 guiones);	*valida (variable booleana que dice si la fecha es valida o ;	no);	*i (variable para recorrer;	cada elemento de la fecha);	*size (variable que almacena;	el tamaño de la fecha;	ingresada)</content>
       </block>
     </blocks>
   </flowchart>

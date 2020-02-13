@@ -4,6 +4,22 @@
 Created on Thu Jan 30 08:35:31 2020
 
 @author: Yonathan Lopez Mejia
+
+Nombre: Yonathan López Mejia
+Grupo: 10
+Documento: 1017220389
+Enunciado: Teniendo en cuenta 
+que un carro necesita cambio de 
+aceite cada 6.000 km, haga un 
+algoritmo que calcule cuántos 
+cambios de aceite ha tenido un 
+carro según el total de kilómetros 
+que ha recorrido.
+
+Análisis: 
+Entradas: km (kilometros recorridos)
+
+salida: cambios (el número de cambios de aceite según el kilometraje)
 """
 
 while True:

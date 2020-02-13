@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><JavaBlocks author="drai06" scriptEngine="JavaScript" version="6010">
   <option fullConnectorValues="true" grid="false" pascal="false"/>
   <flowchart name="Start">
-    <canvas interval="200" posX="63.565884" posY="100.30198" zoom="4"/>
+    <canvas interval="200" posX="240.0" posY="100.30198" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -92,7 +92,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio1">
-    <canvas interval="200" posX="120.0" posY="50.0" zoom="4"/>
+    <canvas interval="200" posX="120.0" posY="-80.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -250,7 +250,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio3">
-    <canvas interval="200" posX="83.05207" posY="39.677086" zoom="5"/>
+    <canvas interval="200" posX="343.71005" posY="-13.0607605" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -359,7 +359,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio4">
-    <canvas interval="200" posX="310.0" posY="147.59026" zoom="4"/>
+    <canvas interval="200" posX="235.5" posY="40.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -449,7 +449,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio5">
-    <canvas interval="200" posX="130.0" posY="30.0" zoom="4"/>
+    <canvas interval="200" posX="340.0" posY="30.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -569,7 +569,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio7">
-    <canvas interval="200" posX="-250.0" posY="-90.0" zoom="4"/>
+    <canvas interval="200" posX="-250.0" posY="-650.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -689,7 +689,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio8">
-    <canvas interval="200" posX="-120.0" posY="-690.0" zoom="4"/>
+    <canvas interval="200" posX="-120.0" posY="-220.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -799,11 +799,11 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio9">
-    <canvas interval="200" posX="160.0" posY="170.0" zoom="4"/>
+    <canvas interval="200" posX="160.0" posY="400.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
-        <visual color="255 255 0" posX="180.0" posY="-580.0"/>
+        <visual color="255 255 0" posX="180.0" posY="-740.0"/>
         <comment>ejercicio9</comment>
         <connect ID="4"/>
       </block>
@@ -819,23 +819,23 @@
       </block>
       <block id="4" type="IO">
         <options displayComment="true"/>
-        <visual color="255 255 0" posX="180.0" posY="-510.0"/>
+        <visual color="255 255 0" posX="180.0" posY="-680.0"/>
         <content>inicio=ReadNumber("Digite la hora de inicio");	;	</content>
         <comment>"Digite la hora de inicio";	inicio ;	</comment>
-        <connect ID="5"/>
+        <connect ID="19"/>
         <io array="0" inputType="0" ioType="2" message="Digite la hora de inicio" variable="inicio"/>
       </block>
       <block id="5" type="IO">
         <options displayComment="true"/>
-        <visual color="255 255 0" posX="180.0" posY="-420.0"/>
+        <visual color="255 255 0" posX="180.0" posY="-510.0"/>
         <content>final=ReadNumber("Digite la hora de finalizacion");	;	</content>
         <comment>"Digite la hora de finalizacion";	final ;	</comment>
-        <connect ID="6"/>
+        <connect ID="20"/>
         <io array="0" inputType="0" ioType="2" message="Digite la hora de finalizacion" variable="final"/>
       </block>
       <block id="6" type="CPU">
         <options displayComment="false"/>
-        <visual color="255 255 0" posX="180.0" posY="-340.0"/>
+        <visual color="255 255 0" posX="180.0" posY="-320.0"/>
         <content>segundos_ini = inicio % 100;	minutos_ini = ((inicio - segundos_ini) % 10000) / 100;	hora_ini = (inicio / 10000) - (inicio % 10000) / 10000</content>
         <connect ID="7"/>
       </block>
@@ -919,10 +919,40 @@
         <connect ID="2"/>
         <io ioType="1" message="El valor a pagar es: $" messageSuffix=" pesos" newLine="true" variable="pago"/>
       </block>
+      <block id="19" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="180.0" posY="-600.0"/>
+        <content>inicio &lt;= 235959 &amp;&amp; inicio &gt;= 0</content>
+        <connect ID="5" value="true"/>
+        <connect ID="22" value="false"/>
+      </block>
+      <block id="20" type="DECISION">
+        <options displayComment="false"/>
+        <visual color="255 255 0" posX="180.0" posY="-420.0"/>
+        <content>final &lt;= 235959 &amp;&amp; final &gt;= 0</content>
+        <connect ID="6" value="true"/>
+        <connect ID="21" value="false"/>
+      </block>
+      <block id="21" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="-170.0" posY="-420.0"/>
+        <content>Writeln("Hora de finalización no valida");	;	</content>
+        <comment>"Hora de finalización no valida" </comment>
+        <connect ID="5"/>
+        <io ioType="1" message="Hora de finalización no valida" messageSuffix="" newLine="true" variable=""/>
+      </block>
+      <block id="22" type="IO">
+        <options displayComment="true"/>
+        <visual color="255 255 0" posX="-180.0" posY="-600.0"/>
+        <content>Writeln("Hora de inicio no valida");	;	</content>
+        <comment>"Hora de inicio no valida" </comment>
+        <connect ID="4"/>
+        <io ioType="1" message="Hora de inicio no valida" messageSuffix="" newLine="true" variable=""/>
+      </block>
     </blocks>
   </flowchart>
   <flowchart name="ejericio10">
-    <canvas interval="200" posX="370.0" posY="93.625" zoom="4"/>
+    <canvas interval="200" posX="580.0" posY="170.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
@@ -1128,7 +1158,7 @@
     </blocks>
   </flowchart>
   <flowchart name="ejercicio12">
-    <canvas interval="200" posX="-328.67258" posY="-84.0" zoom="5"/>
+    <canvas interval="200" posX="140.0" posY="80.0" zoom="4"/>
     <blocks>
       <block id="1" name="Start" type="START">
         <options displayComment="true"/>
