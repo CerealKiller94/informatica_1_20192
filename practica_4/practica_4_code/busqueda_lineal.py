@@ -1,13 +1,41 @@
 # Busqueda lineal
 
+"""
+Nombre: Yonathan López Mejia
+Grupo: 10
+Documento: 1017220389
+Enunciado: Implemente el algoritmo de búsqueda lineal, 
+completando el archivo 
+busqueda_lineal_template.py y guiándose por las 
+indicaciones que aparecen 
+en los comentarios. Ayuda: recuerde el uso de la 
+instrucción break.
+Análisis:
+    entradas:
+        num: En caso de eliminar el comentario correspondiente
+        esta variable permite almacenar un valor ingresado
+        por el usuario
+    auxiliares:
+        ban: variable booleana que indica si se encontró (True) o
+        no (False) el valor buscado
+        iteraciones: cuenta la cantidad de iteraciones y va
+        almacenando cada índice de búsqueda secuencial 
+        num: por defecto es una variable que tiene un valor
+        fijo, este valor se puede cambiar manualmente
+        desde el código fuente o hacer que se lea desde entrada
+    salidas:
+        iteraciones: en caso de encontrar el valor buscado,
+        iteraciones muestra el valor del índice en que está
+        localizado el valor, por otro lado, si no encuentra
+        el valor, iteraciones muestra el número de veces
+        que se repitió el ciclo de búsqueda
+        
+
+"""
+
 # Variables a emplear
 L = [-50, -45, -23, -21, -14, -9, -2, 0, 1, 3, 5, 16, 17, 24, 29, 30, 40, 52, 53, 92]
 
-''' 
-Variable que indica si se encontró la clave en la lista tal que:
-- Ban = False, la clave no esta en la lista
-- Ban = True, la clave esta en la lista
-'''
 ban = False 
 iteraciones = 0
 num = 57  # Valor de prueba para buscar en la lista

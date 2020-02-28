@@ -1,5 +1,37 @@
+"""
+Nombre: Yonathan López Mejia
+Grupo: 10
+Documento: 1017220389
+Enunciado: Implemente el algoritmo de búsqueda de raíces para la 
+función anterior usando el método de bisección. Para ello 
+complete el archivo raices_biseccion_template.py guiándose 
+por los comentarios en el código fuente.
+
+auxiliares:
+    pasos: contador de las veces que se repiten los ciclos
+    a: límite inferior del intervalo de 
+    b: límite superior del intervalo de búsqueda
+    epsilon: tolerancia al error
+    encontrada: variable booleana que dice si se encontró (True)
+    o no (False) la aproximación de la raíz
+    f: variable que almacena el valor de la función
+    evaluada en la posible raíz
+    f1: valor de la función en el extremo inferior del intervalo
+    f2: valor de la función en el extremo superior del intervalo
+    medio: almacena el valor de la posible raíz
+    
+salidas:
+    medio: en caso de encontrar la raíz, se muestra
+    su valor aproximado
+    pasos: siempre se muestra al final el número
+    de ciclos hechos por el algoritmo
+"""
+
 def f(x):
+    """Esta función evalúa y retorna el valor de F(x)
+    es un punto determinado, este punto es el parámetro de la función"""
     f = x**3 + 2*(x**2) - 4*x + 3 
+    #f = x**(x**x) - 5
     return f
 
 # Variables del programa
@@ -43,13 +75,10 @@ else:
 
 print('--------Raiz de la funcion x³ + 2x² - 4x + 3  -Binaria -----------')
 if encontrada:
-    print('\nLa raíz de la función x³ + 2x² - 4x + 3 en el intervalo [-4, -3] es aproximadamente {}'.format(medio))
-    print('\nCantidad de iteraciones: {}'.format(pasos))
-    
-
+    print('\nLa raíz de la función x³ + 2x² - 4x + 3 en el intervalo [-4, -3] es aproximadamente {}'.format(medio)) 
 else:
     print('\nLa raíz de la función x³ + 2x² - 4x + 3 en el intervalo [-4, -3] no fue encontrada')
-    print('\nCantidad de iteraciones: {}'.format(pasos))
+print('\nCantidad de iteraciones: {}'.format(pasos))
 print('---------------------------------------------------------------------')
 # Despliegue de los resultados
 

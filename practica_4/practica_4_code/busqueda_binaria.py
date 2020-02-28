@@ -1,13 +1,41 @@
 # Busqueda binaria
 
+"""
+Nombre: Yonathan López Mejia
+Grupo: 10
+Documento: 1017220389
+Enunciado: Implemente el algoritmo de búsqueda binaria, 
+completando el archivo busqueda_binaria_template.py y 
+guiándose por las indicaciones que aparecen en los comentarios. 
+Asuma que la lista de datos está ordenada.
+
+Análisis:
+Entradas: num (si se elimina el comentario
+se puede usar la variable para obtener un valor numérico
+ingresado por el usuario y buscarlo)
+auxiliares:
+ban: variable booleana que indica si se encontró (True) o
+        no (False) el valor buscado
+bajo: índice inferior del segmento de búsqueda
+alto: índice superior del segmento de búsqueda
+iteraciones: contador de iteraciones
+L: lista ordenada con valores numéricos para buscar
+central: variable que almacena el valor medio del segmento
+de búsqueda y se usa para comparar con el valor buscado
+num: por defecto es una variable que tiene un valor
+        fijo, este valor se puede cambiar manualmente
+        desde el código fuente o hacer que se lea desde entrada
+
+salida: central (en caso de encontrar el valor dentro
+de la lista, se muestra el índice en que fue encontrado)
+iteraciones: muestra el número total de iteraciones
+que hizo el algoritmo
+
+"""
+
 # Variables a emplear
 L = [-50, -45, -23, -21, -14, -9, -2, 0, 1, 3, 5, 16, 17, 24, 29, 30, 40, 52, 53, 92]
 iteraciones = 0 # Contador de iteraciones
-''' 
-Variable que indica si se encontró la clave en la lista tal que:
-- Ban = False, la clave no esta en la lista
-- Ban = True, la clave esta en la lista
-'''
 ban = False 
 
 num = 57  # Valor de prueba para buscar en la lista
