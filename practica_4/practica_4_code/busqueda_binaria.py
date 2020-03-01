@@ -30,6 +30,9 @@ salida: central (en caso de encontrar el valor dentro
 de la lista, se muestra el índice en que fue encontrado)
 iteraciones: muestra el número total de iteraciones
 que hizo el algoritmo
+* Para cada iteración se muestra: el número de la iteración,
+el valor del índice central, el elemento en el índice central,
+y el intervalo de búsqueda
 
 """
 

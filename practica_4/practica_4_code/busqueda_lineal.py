@@ -24,11 +24,14 @@ Análisis:
         fijo, este valor se puede cambiar manualmente
         desde el código fuente o hacer que se lea desde entrada
     salidas:
-        iteraciones: en caso de encontrar el valor buscado,
+        * iteraciones: en caso de encontrar el valor buscado,
         iteraciones muestra el valor del índice en que está
         localizado el valor, por otro lado, si no encuentra
         el valor, iteraciones muestra el número de veces
         que se repitió el ciclo de búsqueda
+        * Para cada iteración del ciclo se muestra: el número total 
+        de iteraciones hasta el momento, la posición actual en la lista
+        y el valor de la lista en la posición actual
         
 
 """

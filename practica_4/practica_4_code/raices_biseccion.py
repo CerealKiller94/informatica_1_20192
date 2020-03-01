@@ -31,7 +31,7 @@ def f(x):
     """Esta función evalúa y retorna el valor de F(x)
     es un punto determinado, este punto es el parámetro de la función"""
     f = x**3 + 2*(x**2) - 4*x + 3 
-    #f = x**(x**x) - 5
+    #f = x**x - 5
     return f
 
 # Variables del programa
@@ -68,7 +68,7 @@ else:
         if abs(fx - 0) <= epsilon:
             encontrada = True
             break
-        if fx > 0:
+        if f(a)*fx < 0:
             b = medio
         else:
             a = medio
@@ -81,4 +81,3 @@ else:
 print('\nCantidad de iteraciones: {}'.format(pasos))
 print('---------------------------------------------------------------------')
 # Despliegue de los resultados
-
