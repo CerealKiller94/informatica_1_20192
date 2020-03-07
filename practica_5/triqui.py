@@ -47,22 +47,16 @@ def drawBoard(board):
 
 def inputPlayerLetter():
     while True:
-        opc = input('''
-        Seleccione un número para seleccionar la letra con la que jugar
-        1: X
-        2: 0
-        ''')
-        if opc == '1':
+        opc = input('Seleccione X o O para jugar\n').upper()
+        if opc == 'X':
             letras = 'X,O'
-        elif opc == '2':
+        elif opc == 'O':
             letras = 'O,X'
         else:
-            print('No seleccionó un número válido')
+            print('No seleccionó un símbolo valido')
             continue
             
         return letras
-    
-        
     
     # Esta función le permite escoger al usuario entre la letra "X" y la letra "O".
 
@@ -145,7 +139,7 @@ def isSpaceFree(board, move):
 
 def getPlayerMove(board, marca_usuario):
     while True:
-        numero = int(input('Escriba el número de la casilla: '))
+        numero = int(input('Escriba el número de la casilla (1-9): '))
         if 1 <= numero <= 9:
             is_free = isSpaceFree(board, numero)
             if is_free:
@@ -168,6 +162,7 @@ def getPlayerMove(board, marca_usuario):
     # Desarrolle el cuerpo de la función aquí...
 
 def chooseRandomMoveFromList(board, movesList):
+    
     # Esta función escoge de forma aleatoria una casilla vacía del tablero.
 
     # Argumentos:
@@ -179,9 +174,53 @@ def chooseRandomMoveFromList(board, movesList):
     # esta función debe retornar el valor None.
 
     # Desarrolle el cuerpo de la función aquí...
-    pass
+    while len(movesList) > 0:
+        move = random.choice(movesList)
+        if isSpaceFree(board, move):
+            return move
+        else:
+            del movesList[movesList.index(move)]
+    return None
+    
 
 def getComputerMove(board, computerLetter):
+    
+    copy_of_board = board
+    i = 1
+    while i < len(copy_of_board):
+        if isSpaceFree(copy_of_board, i):
+            copy_of_board[i] = computerLetter
+            if isWinner(copy_of_board, computerLetter):
+                board[i] = computerLetter
+                return board
+            else:
+                copy_of_board[i] = " "
+        i += 1
+    
+    i = 0
+    
+    if computerLetter == 'O':
+        userLetter = 'X'
+    else:
+        userLetter = 'O'
+        
+    while i < len(copy_of_board):
+        if isSpaceFree(copy_of_board, i):
+            copy_of_board[i] = userLetter
+            if isWinner(copy_of_board, userLetter):
+                board[i] = computerLetter
+                return board
+            else:
+                copy_of_board[i] = " "
+        i += 1
+        
+    move = chooseRandomMoveFromList(board, list(range(1,10)))
+    
+    if move is not None:
+        board[move] = computerLetter
+        
+    return board
+
     # Esta función implementa la estrategia de juego de la computadora.
 
     # Argumentos:
@@ -200,10 +239,9 @@ def getComputerMove(board, computerLetter):
 
     # 5. Si no, tratar de poner una marca en alguna de las casillas de los lados...
 
-    pass
 
 def isBoardFull(board):
-    return ' ' in board
+    return ' ' in board[1:]
     # Esta función verifica si el tablero está lleno.
 
     # Argumentos:
