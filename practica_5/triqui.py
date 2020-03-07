@@ -1,5 +1,6 @@
 import random
 
+
 def printIntro(introFile):
     '''
         Firma:
@@ -45,7 +46,6 @@ def drawBoard(board):
     '''.format(*board[1:]))
 
 def inputPlayerLetter():
-    
     while True:
         opc = input('''
         Seleccione un número para seleccionar la letra con la que jugar
@@ -82,7 +82,8 @@ def whoGoesFirst():
     return random.choice(['Usuario', 'Computadora'])
 
 def makeMove(board, letter, move):
-    # Esta función actualiza el estado del tablero.
+    board[move] = letter
+    return board
 
     # Argumentos:
     # board: Lista de strings que almacena el estado del tablero.
@@ -90,9 +91,33 @@ def makeMove(board, letter, move):
     # move: Es el número de la casilla donde se desea poner la marca.
 
     # Desarrolle el cuerpo de la función aquí...
-    pass
 
 def isWinner(board, letter):
+    if board[1:4] == [letter, letter, letter]:
+        return True
+    
+    if board[4:7] == [letter, letter, letter]:
+        return True
+    
+    if board[7:10] == [letter, letter, letter]:
+        return True
+    
+    if board[1] == letter and board[5] == letter and board[9] == letter:
+        return True
+    
+    if board[7] == letter and board[5] == letter and board[3] == letter:
+        return True
+    
+    if board[7] == letter and board[4] == letter and board[1] == letter:
+        return True
+    
+    if board[8] == letter and board[5] == letter and board[2] == letter:
+        return True
+    
+    if board[9] == letter and board[6] == letter and board[3] == letter:
+        return True
+    
+    return False
     # Esta función debe verificar si hay una jugada ganadora en el tablero.
 
     # Argumentos:
@@ -106,6 +131,7 @@ def isWinner(board, letter):
     pass
 
 def isSpaceFree(board, move):
+    return board[move].isspace()
     # Esta función verifica si hay una casilla vacía en el tablero.
 
     # Argumentos:
@@ -116,9 +142,20 @@ def isSpaceFree(board, move):
     # en caso contrario, debe retornar el valor lógico False.
 
     # Desarrolle el cuerpo de la función aquí...
-    pass
 
-def getPlayerMove(board):
+def getPlayerMove(board, marca_usuario):
+    while True:
+        numero = int(input('Escriba el número de la casilla: '))
+        if 1 <= numero <= 9:
+            is_free = isSpaceFree(board, numero)
+            if is_free:
+                break
+            else:
+                print('El número está ocupado')
+        else:
+            print('Digite un número entre 1 y 9')
+    
+    return makeMove(board, marca_usuario, numero)
     # Esta función le pide al usuario que ingrese el número de la casilla
     # que quiere marcar.
 
@@ -129,7 +166,6 @@ def getPlayerMove(board):
 
 
     # Desarrolle el cuerpo de la función aquí...
-    pass
 
 def chooseRandomMoveFromList(board, movesList):
     # Esta función escoge de forma aleatoria una casilla vacía del tablero.
@@ -167,6 +203,7 @@ def getComputerMove(board, computerLetter):
     pass
 
 def isBoardFull(board):
+    return ' ' in board
     # Esta función verifica si el tablero está lleno.
 
     # Argumentos:
@@ -176,4 +213,4 @@ def isBoardFull(board):
     # En caso contrario debe retornar el valor lógico False.
 
     # Desarrolle el cuerpo de la función aquí...
-    pass
+    

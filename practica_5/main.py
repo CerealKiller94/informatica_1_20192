@@ -19,10 +19,15 @@ while True:
 
             # a. Mostrar tablero
             tr.drawBoard(tablero)
-            input()
-            # b. Pedir jugada al usuario
             # c. Actualizar el tablero
-
+            tablero = tr.getPlayerMove(tablero, marca_usuario)
+            if tr.isWinner(tablero, marca_usuario):
+                tr.drawBoard(tablero)
+                print('¡El humano ha vencido a la máquina: ')
+            if not tr.isBoardFull():
+                print('Empate')
+            else:
+                turn = 'Computadora'
             # d. Verificar si el usuario ha ganado el juego.
             #    Si si, mostrar tablero, mostrar mensaje de felicitación y terminar el juego.
 
@@ -32,7 +37,7 @@ while True:
             # f. Si el usuario no ha ganado y no hay empate, la computadora
             #    toma el siguiente turno
 
-            turn = 'Computadora'
+            #turn = 'Computadora'
 
         else: # 6. Turno de la computadora.
 
