@@ -1,11 +1,16 @@
 import triqui as tr
 import sys
+import os
 
 tr.printIntro('intro.txt')
+player_name = input('Nombre del jugador: \n')
+user_win = 0
+computer_win = 0
+tied_game = 0
 
 turn ="" # Indica quién tiene el turno para jugar, el usuario o la computadora.
 while True:
-
+    
     tablero = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
     marca_usuario, marca_computadora = tr.inputPlayerLetter().split(',')
     print('La marca del usuario es:', marca_usuario)
@@ -24,10 +29,12 @@ while True:
             tablero = tr.getPlayerMove(tablero, marca_usuario)
             if tr.isWinner(tablero, marca_usuario):
                 tr.drawBoard(tablero)
+                user_win += 1
                 print('¡El humano ha vencido a la máquina!')
                 break
             elif not tr.isBoardFull(tablero):
                 tr.drawBoard(tablero)
+                tied_game += 1
                 print('Empate')
                 break
         
@@ -49,10 +56,12 @@ while True:
             # c. Verificar si la computadora ha ganado el juego.
             if tr.isWinner(tablero, marca_computadora):
                 tr.drawBoard(tablero)
+                computer_win += 1
                 print('La máquina ha vencido al humano. Skynet se acerca')
                 break
             elif not tr.isBoardFull(tablero):
                 tr.drawBoard(tablero)
+                tied_game += 1
                 print('Empate')
                 break
                 
@@ -72,6 +81,22 @@ while True:
     while True:
         opc = input('¿Quiere volver a jugar? s/n\n')
         if opc == 'n':
+            with open('estadisticas.txt', 'a') as file:
+                message = '''
+                ------------------------------ Triqui -----------------------------
+                
+                {0}
+                
+                Nombre del jugador: {1}
+                
+                Juegos ganados por el usuario: {2}
+                Juegos ganados por el computador: {3}
+                Juegos empatados: {4}
+                
+                -------------------------------------------------------------------
+                '''.format(os.popen('date').read(), player_name, user_win, computer_win, tied_game)
+                file.write(message)
+                
             sys.exit()
         if opc == 's':
             break

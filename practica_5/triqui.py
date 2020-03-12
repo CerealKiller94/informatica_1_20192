@@ -213,12 +213,15 @@ def getComputerMove(board, computerLetter):
             else:
                 copy_of_board[i] = " "
         i += 1
-        
-    move = chooseRandomMoveFromList(board, list(range(1,10)))
     
-    if move is not None:
-        board[move] = computerLetter
-        
+    movimientos = [[1, 3, 7, 9], [5], [2, 4, 6, 8]]
+    
+    for moves_list in movimientos:
+        move = chooseRandomMoveFromList(board, moves_list)
+        if move is not None:
+            board[move] = computerLetter
+            break
+       
     return board
 
     # Esta función implementa la estrategia de juego de la computadora.
