@@ -1,5 +1,9 @@
 import random
 
+"""
+Nombre: Yonathan López Mejía
+Documento: 1017220389
+"""
 
 def printIntro(introFile):
     '''
@@ -28,15 +32,14 @@ def printIntro(introFile):
 
     with open(introFile) as message:
         for line in message:
-            print(line)
+            print(line, end='')
     
 
 def drawBoard(board):
-    # Esta función imprime el tablero en la consola
-    # Argumentos:
-    # Board: Lista de strings que representa el estado del tablero
+    """ Esta función imprime el tablero en la consola
+     Argumentos:
+     Board: Lista de strings que representa el estado del tablero """
 
-    # Desarrolle el cuerpo de la función aquí...
     print(''' 
      {6}  | {7}  | {8}
     ----+----+---
@@ -46,6 +49,12 @@ def drawBoard(board):
     '''.format(*board[1:]))
 
 def inputPlayerLetter():
+    """
+    Esta función le permite escoger al usuario entre la letra "X" y la letra "O".
+    retorna una lista de strings donde la letra escogida por el usuario
+    ocupa la primera posición y la letra que le corresponde a la computadora
+    ocupa la segunda posición.
+    """
     while True:
         opc = input('Seleccione X o O para jugar\n').upper()
         if opc == 'X':
@@ -58,35 +67,45 @@ def inputPlayerLetter():
             
         return letras
     
-    # Esta función le permite escoger al usuario entre la letra "X" y la letra "O".
-
-    # retorna una lista de strings donde la letra escogida por el usuario
-    # ocupa la primera posición y la letra que le corresponde a la computadora
-    # ocupa la segunda posición.
+    
 
     # Desarrolle el cuerpo de la función aquí...
     
 def whoGoesFirst():
-    # Esta función escoge de forma aleatoria quien inicial el juego.
-
-    # Retorna el string "Usuario" si el usuario inicia el juego o
-    # el string "Computadora" si la computadora inicia el juego.
-
-    # Desarrolle el cuerpo de la función aquí...
+    """
+    Esta función escoge de forma aleatoria quien inicial el juego.
+    Retorna el string "Usuario" si el usuario inicia el juego o
+    el string "Computadora" si la computadora inicia el juego.
+    """
     return random.choice(['Usuario', 'Computadora'])
 
 def makeMove(board, letter, move):
+    """
+    Esta función agrega la marca del jugador o la computadora en la lista
+    que representa el estado actual del tablero y luego
+    retorna el tablero
+    Argumentos:
+    board: Lista de strings que almacena el estado del tablero.
+    letter: Es la marca que se desea poner en el tablero ("X" o "O").
+    move: Es el número de la casilla donde se desea poner la marca.
+    """
+    
     board[move] = letter
     return board
 
-    # Argumentos:
-    # board: Lista de strings que almacena el estado del tablero.
-    # letter: Es la marca que se desea poner en el tablero ("X" o "O").
-    # move: Es el número de la casilla donde se desea poner la marca.
-
-    # Desarrolle el cuerpo de la función aquí...
 
 def isWinner(board, letter):
+    
+    """
+    Esta función verifica si hay una jugada ganadora en el tablero.
+    Valida cada una de las posibles formas de ganar definidas
+    por las combinaciones en las posiciones de la lista
+    Argumentos:
+    board: Lista de strings que almacena el estado del tablero.
+    letter: La marca que se desea verificar ("X" o "O").
+    Esta función retorna el valor lógico True, si hay una jugada ganadora o
+    retorna el valor lógico False, si no hay una jugada ganadora.
+    """
     if board[1:4] == [letter, letter, letter]:
         return True
     
@@ -112,32 +131,41 @@ def isWinner(board, letter):
         return True
     
     return False
-    # Esta función debe verificar si hay una jugada ganadora en el tablero.
-
-    # Argumentos:
-    # board: Lista de strings que almacena el estado del tablero.
-    # letter: La marca que se desea verificar ("X" o "O").
-
-    # Esta función debe retornar el valor lógico True, si hay una jugada ganadora o
-    # debe retornar el valor lógico False, si no hay una jugada ganadora.
-
-    # Desarrolle el cuerpo de la función aquí...
-    pass
+   
+ 
 
 def isSpaceFree(board, move):
+    """
+    Esta función verifica si hay una casilla vacía 
+    en una posición de la lista que representa el tablero.
+    Argumentos:
+    board: Lista de strings que almacena el estado del tablero.
+    move: Es el número de la casilla que se desea verificar.
+
+    Esta función retorna el valor lógico True, si la casilla está vacía
+    en caso contrario, retorna el valor lógico False.
+    """
     return board[move].isspace()
-    # Esta función verifica si hay una casilla vacía en el tablero.
-
-    # Argumentos:
-    # board: Lista de strings que almacena el estado del tablero.
-    # move: Es el número de la casilla que se desea verificar.
-
-    # Esta función debe retornar el valor lógico True, si la casilla está vacía
-    # en caso contrario, debe retornar el valor lógico False.
-
-    # Desarrolle el cuerpo de la función aquí...
+    
 
 def getPlayerMove(board, marca_usuario):
+    
+    """
+    Esta función le pide al usuario que ingrese el número de la casilla
+    que quiere marcar definida por un número entre 1 y 9.
+    Se pide el número y se valida usando la función isSpaceFree si el tablero
+    en esa posición está vacío, en caso de estar vacío
+    envía el estado del tablero, la marca del usuario y la posición
+    a la función makeMove, en caso de que no lo esté muestra un mensaje
+    y vuelve a pedir ingresar la información. El ciclo
+    se repite hasta que el usuario ingrese el número correcto
+    
+    Argumentos:
+    board: Lista de strings que almacena el estado del tablero.
+    marca_usuario: el símbolo que representa la marca del usuario
+    en la partida actual.
+    Esta función retorna el tablero con el movimiento ejecutado.
+    """
     while True:
         numero = int(input('Escriba el número de la casilla (1-9): '))
         if 1 <= numero <= 9:
@@ -150,30 +178,20 @@ def getPlayerMove(board, marca_usuario):
             print('Digite un número entre 1 y 9')
     
     return makeMove(board, marca_usuario, numero)
-    # Esta función le pide al usuario que ingrese el número de la casilla
-    # que quiere marcar.
-
-    # Argumentos:
-    # board: Lista de strings que almacena el estado del tablero.
-
-    # Esta función retorna el número de la casilla seleccionada por el usuario.
-
-
-    # Desarrolle el cuerpo de la función aquí...
-
+    
+ 
 def chooseRandomMoveFromList(board, movesList):
     
-    # Esta función escoge de forma aleatoria una casilla vacía del tablero.
-
-    # Argumentos:
-    # board: Lista de strings que almacena el estado del tablero.
-    # moveList: Lista que contiene los números de las casillas a verificar (ver documento de la práctica).
-
-    # Esta función debe retornar alguno de los números de casillas en moveList
-    # desde que dicha casilla esté vacía. Si ninguna de las casillas está vacía,
-    # esta función debe retornar el valor None.
-
-    # Desarrolle el cuerpo de la función aquí...
+    """
+    Esta función escoge de forma aleatoria una casilla vacía del tablero.
+    Argumentos:
+    board: Lista de strings que almacena el estado del tablero.
+    moveList: Lista que contiene los números de las casillas a verificar.
+    Esta función retorna alguno de los números de casillas en moveList
+    desde que dicha casilla esté vacía. Si ninguna de las casillas está vacía,
+    esta función retorna el valor None.
+    """
+    
     while len(movesList) > 0:
         move = random.choice(movesList)
         if isSpaceFree(board, move):
@@ -185,7 +203,25 @@ def chooseRandomMoveFromList(board, movesList):
 
 def getComputerMove(board, computerLetter):
     
-    copy_of_board = board
+    
+    """
+    Esta función hace una copia del tablero e implementa la estrategia de juego de la computadora.
+    1. Verifica si la computadora puede ganar, en caso afirmativo realiza la jugada y retorna el tablero
+    con la jugada
+    2. Si no, verifica si el usuario puede ganar en la siguiente jugada, en caso de que 
+    sí, bloquea la jugada del usuario y retorna el tablero actualizado
+    3. Si no, trata de poner una marca en alguna de las esquinas
+    4. Si no, trata de marcar la casilla del centro
+    5. Si no, tratar de poner una marca en alguna de las casillas de los lados
+    si se cumple 3, 4, o 5 o ninguna, igualmente retorna el tablero con la jugada
+    o sin ella si no puede realizarla
+    
+    Argumentos:
+    board: Lista de strings que almacena el estado del tablero.
+    computerLetter: La marca que está usando la computadora.
+    """
+    
+    copy_of_board = board #Copia del estado del tablero
     i = 1
     while i < len(copy_of_board):
         if isSpaceFree(copy_of_board, i):
@@ -224,34 +260,15 @@ def getComputerMove(board, computerLetter):
        
     return board
 
-    # Esta función implementa la estrategia de juego de la computadora.
-
-    # Argumentos:
-    # board: Lista de strings que almacena el estado del tablero.
-    # computerLetter: La marca que está usando la computadora.
-
-    # Desarrolle el cuerpo de la función aquí...
-
-    # 1. Verificar si la computadora puede ganar...
-
-    # 2. Si no, verificar si el usuario puede ganar en la siguiente jugada, si si, bloquear esta jugada...
-
-    # 3. Si no, tratar de poner una marca en alguna de las esquinas, si alguna está vacía...
-
-    # 4. Si no, tratar de marcar la casilla del centro, si esta está vacía...
-
-    # 5. Si no, tratar de poner una marca en alguna de las casillas de los lados...
 
 
 def isBoardFull(board):
+    """
+    Esta función verifica si el tablero está lleno.
+    Argumentos:
+    board: Lista de strings que almacena el estado del tablero.
+    Esta función retorna el valor lógico True, si el tablero está lleno.
+    En caso contrario retorna el valor lógico False.
+    """
     return ' ' in board[1:]
-    # Esta función verifica si el tablero está lleno.
-
-    # Argumentos:
-    # board: Lista de strings que almacena el estado del tablero.
-
-    # Esta función debe retorna el valor lógico True, si el tablero está lleno.
-    # En caso contrario debe retornar el valor lógico False.
-
-    # Desarrolle el cuerpo de la función aquí...
     
