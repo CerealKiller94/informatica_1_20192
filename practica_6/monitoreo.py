@@ -135,7 +135,39 @@ def escribir_usuarios(archivo):
         user = '''<{0};{1};{2};{3}>'''.format(key, *value)
         archivo.write(user)
         archivo.write('\n')
+    archivo.write('\n')   
 
+def escribir_estaciones(archivo):
+    """
+    Esta función recibe el archivo a escribir y dentro de él
+    escribe todos los datos de las estaciones registradas dentro del aplicativo
+    respetando el formato predefinido.
+    la variable key representa la clave de cada entrada en el diccionario (clave de estacion, autoincremental)
+    y la variable value representa los valores almacenados en forma de 
+    lista para cada estacion
+    """
+    global estaciones
+    for key, value in estaciones.items():
+        estacion = '''{0},{1},{2}'''.format(key, *value)
+        archivo.write(estacion)
+        archivo.write('\n')
+    archivo.write('\n') 
+
+def escribir_municipios(archivo):
+    """
+    Esta función recibe el archivo a escribir y dentro de él
+    escribe todos los datos de las estaciones registradas dentro del aplicativo
+    respetando el formato predefinido.
+    la variable key representa la clave de cada entrada en el diccionario (clave de estacion, autoincremental)
+    y la variable value representa los valores almacenados en forma de 
+    lista para cada estacion
+    """
+    global municipios
+    municipio = ':'
+    municipio += ','.join(municipios)
+    archivo.write(municipio)
+    archivo.write('\n\n')
+    
 def escribir_archivo():
     """
     Esta función abre el archivo para escribir y luego llama a cada 
@@ -144,9 +176,75 @@ def escribir_archivo():
     """
     with open('escribir_prueba.txt', 'w') as archivo:
         escribir_usuarios(archivo)
+        escribir_municipios(archivo)
+        escribir_estaciones(archivo)
+        
 
-                
-                
-                
+def obtener_municipios():
+    """
+    Esta función retorna una copia del diccionario de municipios
+    """
+    global municipios
+    return municipios.copy()
 
+def crear_estacion(nombre, municipio):
+    """Esta función agrega una nueva estación al diccionario de estaciones.
+    Recibe un nombre para la estación y el municipio en el que está,
+    luego, valida si esa estación ya está en el municipio, en caso
+    de que se cumpla la condición retorna False y no se crea una estación,
+    en caso contrario crea la estación y retorna True"""
+    global estaciones
+    clave = str(len(estaciones)+1)
+    for values in estaciones.values():
+        if values[0] == nombre and values[1] == municipio:
+            return False
+    estaciones[clave] = [nombre, municipio]
+    return True
 
+def obtener_estaciones():
+    """Esta función retorna una copia del diccionario de estaciones"""
+    global estaciones
+    return estaciones.copy()
+
+def editar_estacion(clave, nombre, municipio):
+    """
+    Esta función actualiza una entrada en el diccionario de estaciones.
+    Edita una estación si los nuevos datos no hacen referencia
+    a una estación ya existente en cuyo caso retorna False indicando
+    que no se actualizó ninguna entrada o retorna True si se actualizó
+    alguna estación
+    """
+    global estaciones
+    for values in estaciones.values():
+        if values[0] == nombre and values[1] == municipio:
+            return False
+    estaciones[clave] = [nombre, municipio]
+    return True
+
+def validar_estacion(clave):
+    """
+    Esta función recibe la clave de una estación.
+    Valida si una estación tiene medidas asignadas.
+    En caso de que las tenga retorna False en caso contrario, 
+    retorna True
+    """
+    global mediciones
+    for medida in mediciones:
+        if clave == medida[1]:
+            return False
+    return True
+    
+def eliminar_estacion(clave):
+    """
+    Esta función recibe la clave de la estación que se quiere eliminar.
+    Luego, llama a la función encargada de validar si la estación
+    tiene medidas asociadas. Si la estación no tiene medidas asociadas
+    se elimina la entrada y se retorna un True, en caso contrario, se
+    retorn un False
+    """
+    global estaciones
+    if validar_estacion(clave):
+        del estaciones[clave]
+        return True
+    else:
+        return False
