@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+import datetime
+
 """
 Created on Mon Mar 30 11:28:35 2020
 
@@ -167,7 +170,25 @@ def escribir_municipios(archivo):
     municipio += ','.join(municipios)
     archivo.write(municipio)
     archivo.write('\n\n')
+
+def escribir_limites(archivo):
+    """Esta función recibe el archivo a escribir
+    y escribe en el, el string correspondiente a los limites.
+    No retorna"""
+    global limites
+    archivo.write(";".join(limites))
+    archivo.write('\n\n')
+
+def escribir_medidas(archivo):
+    """Esta función recibe el archivo a escribir
+    y escribe en el las cadenas correspondientes a los
+    límites"""
     
+    global mediciones
+    for medicion in mediciones:
+        archivo.write(";".join(medicion))
+        archivo.write('\n')
+
 def escribir_archivo():
     """
     Esta función abre el archivo para escribir y luego llama a cada 
@@ -178,6 +199,8 @@ def escribir_archivo():
         escribir_usuarios(archivo)
         escribir_municipios(archivo)
         escribir_estaciones(archivo)
+        escribir_limites(archivo)
+        escribir_medidas(archivo)
         
 
 def obtener_municipios():
@@ -185,7 +208,7 @@ def obtener_municipios():
     Esta función retorna una copia del diccionario de municipios
     """
     global municipios
-    return municipios.copy()
+    return municipios[:]
 
 def crear_estacion(nombre, municipio):
     """Esta función agrega una nueva estación al diccionario de estaciones.
@@ -248,3 +271,32 @@ def eliminar_estacion(clave):
         return True
     else:
         return False
+    
+def consultar_estaciones_municipio(municipio):
+    """Esta función retorna todas las estaciones
+    dentro del diccionario de estaciones que correspondan
+    con el municipio deseado"""
+    global estaciones
+    return {key:value for (key, value) in estaciones.items() if value[1] == municipio}
+
+def obtener_limites():
+    """Esta función retorna una copia
+    de la lista de límites"""
+    global limites
+    return limites.copy()
+
+def agregar_medida(estacion, medidas):
+    """
+    Esta función recibe el código de la estación en forma de string asociada
+    a las medidas y una tupla con las medidas ingresadas
+    por el usuario ya validadas y las agrega a la lista de mediciones
+    """
+    global mediciones
+    fecha = str(datetime.datetime.now().replace(microsecond=0))
+    medida = '{'
+    medida += """{0},{1},{2},{3}""".format(*medidas)
+    medida += '}'
+    medida = medida.replace("ND", "-999")
+    mediciones.append([fecha, str(estacion), medida])
+    return True
+    

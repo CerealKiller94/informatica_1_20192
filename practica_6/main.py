@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import monitoreo as mn
-user_actual = ''
+import re
+user_actual = ""
+
 
 """
 Created on Mon Mar 30 11:28:19 2020
@@ -347,6 +349,11 @@ def editar_estacion():
     return False
 
 def eliminar_estacion():
+    """Esta función es la encargadad de eliminar una estación
+    primero obtiene los valores de la estación a eliminar,
+    luego, llama a la función elimiar estación del módulo
+    y si esta función retorna True significa que pudo
+    eliminar la estación y la función finaliza retornando True"""
     estacion_id, valores = seleccionar_estacion()
     if not estacion_id:
         return False
@@ -424,6 +431,159 @@ def gestionar_usuarios():
         else:
             print('Seleccionó una opción no valida. Reintente')
 
+def seleccionar_estacion_municipio(municipio):
+    """
+    Esta función recibe el código del municipio de donde
+    se quieren extraer las estaciones de medición.
+    Si en el municipio no hay estaciones se muestra un mensaje y se retorna
+    Falso.
+    Si en el municipio hay estaciones se listan las estaciones
+    y se le pide ingresar al usuario el código de la estación o -1
+    para volver al menú de municipios. Si el usuario selecciona
+    una estación, se retorna la estación, si el usuario selecciona -1
+    la función retorna False.
+    """
+    print('Municipio seleccionado: {}'.format(municipio))
+    estaciones = mn.consultar_estaciones_municipio(municipio)
+    if not estaciones:
+        print('En este municipio no hay estaciones registradas')
+        return False
+    else:
+        for key, value in estaciones.items():
+            print('''
+            Código estacion: {0}
+            Nombre:          {1}
+            Municipio:       {2}
+                  '''.format(key, *value))
+        while True:
+            opc = input('Seleccione el código de la estacion o -1 para seleccionar municipio: ').strip()
+            if opc == '-1':
+                return False
+            if opc not in estaciones:
+                print('Seleccionó un código no valido')
+                continue
+            return estaciones
+
+def validar_medidas(valor, medidas):
+    """Esta función recibe el valor de las medidas
+    que se quieren ingresar y una lista con los valores
+    máximo y mínimo de la medida. Si el valor
+    es ND o está entre los límites retorna True, sino, False"""
+    if valor == 'ND':
+        return True
+    valor = float(valor)
+    minimo =  float(medidas[1])
+    maximo = float(medidas[2])
+    
+    if minimo <= valor <= maximo:
+        return True
+    
+    return False
+    
+    
+def ingresar_medidas(estacion):
+    """
+    Esta función recibe el código de la estación a la que
+    se le quiere asignar la medida, la función
+    crea una lista con los límites para cada medida y permite
+    ingresar cada valor de la medida, si cada valor ingresado
+    no cumple con la validación hace que el usuario tenga que volver
+    a ingresar la medida, si el usuario escribe -1 en cualquier momento
+    la función retorna None.
+    """
+    
+    limites = mn.obtener_limites()
+    valores = []
+    
+    for limite in limites:
+        valores.append(re.split('\[|\]|,|\:', limite)[:-1])
+    
+    while True:
+        pm10 = input('Digite el valor numérico de las partículas PM10 o ND si no está disponible. -1 para salir: ').strip()
+        resp = validar_medidas(pm10.upper(), valores[0])
+        if pm10 == '-1':
+            return
+        if resp:
+            break
+        print('Valor de PM10 no valido. Reintente')
+    
+    while True:
+        pm25 = input('Digite el valor numérico de las partículas PM25 o ND si no está disponible. -1 para salir: ').strip()
+        resp = validar_medidas(pm25.upper(), valores[1])
+        if pm25 == '-1':
+            return
+        if resp:
+            break
+        print('Valor de PM25 no valido. Reintente')
+        
+    while True:
+        temp = input('Digite el valor numérico de la temperatura o ND si no está disponible. -1 para salir: ').strip()
+        resp = validar_medidas(temp.upper(), valores[2])
+        if temp == '-1':
+            return
+        if resp:
+            break
+        print('Valor de temperatura no valido. Reintente')
+        
+    while True:
+        humedad = input('Digite el valor numérico de la humedad o ND si no está disponible. -1 para salir: ').strip()
+        resp = validar_medidas(humedad.upper(), valores[3])
+        if humedad == '-1':
+            return
+        if resp:
+            break
+        print('Valor de la humedad no valido. Reintente')
+    
+    mn.agregar_medida(estacion, (pm10, pm25, temp, humedad))
+    return True
+   
+def menu_operador():
+    """
+    Esta función representa el menú del operador,
+    en ella se selecciona la acción a realizar entre las tres
+    posibles: ingresar medidas, listar medidas o salir.
+    Si el usuario decide salir
+    la función retorna None, si el usuario elige alguna
+    de las operaciones como usuario operador, 
+    la función se encarga de redirigirlo a cada subprograma
+    del aplicativo principal.
+    """
+    print('----- Operador -----')
+    
+    while True:
+        print('''
+        Seleccione:
+        1: Ingresar medidas
+        2: Listar medidas
+        3: Salir
+          ''')
+        opc = input()
+        if opc == '3':
+            global user_actual
+            user_actual = ""
+            return
+        if opc != "1" and opc != "2":
+            print('Digitó una opción no valida. Reintente')
+            continue
+
+            
+        while True:
+            municipio = listar_municipios()
+            if not municipio:
+                return
+            estacion = seleccionar_estacion_municipio(municipio)
+            if estacion:
+                break
+            
+        for key in estacion.keys():
+            codigo_estacion = key
+            
+        if opc == "1":
+            if(ingresar_medidas(codigo_estacion)):
+                print('Se agregaron las medidas satisfactoriamente')
+            else:
+                print('No se agregaron medidas nuevas')
+
 def menu_administrador():
     """
     Esta función presenta el menú básico de administrador del aplicativo.
@@ -433,6 +593,7 @@ def menu_administrador():
     un administrador: gestionar estaciones y usuarios.
     Para cada una de estas operaciones hace una llamada de función
     """
+    print('--- Administrador ----')
     while True:
         opc = input('''
         Seleccione una opción como administrador:
@@ -441,6 +602,8 @@ def menu_administrador():
             3. Gestionar usuarios
             ''')
         if opc == '1':
+            global user_actual
+            user_actual = ""
             return
         if opc == '2':
             gestionar_estaciones()
@@ -491,7 +654,8 @@ def usuario_registrado():
     según.
     """
     global user_actual
-    if user_actual == '':
+    
+    if user_actual == "":
         perfil = inicio_sesion()
     
     if not perfil:
@@ -499,7 +663,7 @@ def usuario_registrado():
     elif perfil == 'Administrador':
         menu_administrador()
     else:
-        pass
+        menu_operador()
     
 
 def menu():
