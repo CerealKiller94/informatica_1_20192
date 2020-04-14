@@ -303,7 +303,7 @@ def listar_municipios():
         
         if opc.isnumeric():
             opc = int(opc)
-            if opc > 10 or opc < 1:
+            if opc > len(municipios) or opc < 1:
                 print('Digitó una opción no valida. Vuelva a intentar')
             else:
                 seleccion = municipios[opc-1]
@@ -496,7 +496,7 @@ def ingresar_medidas(estacion):
     
     for medida in valores:
         while True:
-            print('Escriba el valor numérico de las partículas {0} o ND si no está disponible. -1 para salir'.format(medida[0]))
+            print('Escriba el valor numérico de {0} o ND si no está disponible. -1 para salir'.format(medida[0]))
             lectura = input().strip()
             if lectura == '-1':
                 return
@@ -639,6 +639,7 @@ def usuario_visitante():
         
     variables = set()
     nombres_medidas = mn.obtener_limites()
+    municipios = set()
     
     while True:
         i = 1
@@ -657,14 +658,40 @@ def usuario_visitante():
             if opc == 0:
                 break
             if opc == i:
-                variables = {0,1,2,3}
+                variables = {i for i in range(len(nombres_medidas))}
                 break
-            if 1 <= opc <= 4:
+            if 1 <= opc <= len(nombres_medidas):
                 variables.add(opc-1)
                 continue
         print('Seleccionó una opción no valida')
+        
+    while True:
+        opc = input("""
+        1. Para agregar un municipio
+        2. Para agregar todos los municipios
+        3. Para ir al siguiente paso
+        4. Para salir sin hacer nada            
+        """).strip()
+        if opc == "1":
+            municipio = listar_municipios()
+            if not municipio:
+                continue
+            municipios.add(municipio)
+            continue
+        if opc == "2":
+            municipios = set(mn.obtener_municipios())
+            break
+        if opc == "4":
+            return
+        if opc == "3":
+            break
+        else:
+            print('Opción no valida')
+        
+            
     
     print(variables)
+    print(municipios)
 
 def inicio_sesion():
     """
