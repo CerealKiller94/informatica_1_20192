@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import monitoreo as mn
+import utilidades as utils
 import re
 user_actual = ""
 
@@ -462,19 +463,17 @@ def seleccionar_estacion_municipio(municipio):
             if opc not in estaciones:
                 print('Seleccionó un código no valido')
                 continue
-            return estaciones
+            return {opc:estaciones[opc]}
 
-def validar_medidas(valor, medidas):
+def validar_medidas(valor, minimo, maximo):
     """Esta función recibe el valor de las medidas
-    que se quieren ingresar y una lista con los valores
-    máximo y mínimo de la medida. Si el valor
+    que se quieren ingresar y los valores máximos y mínimos de la medida. Si el valor
     es ND o está entre los límites retorna True, sino, False"""
     if valor == 'ND':
         return True
     valor = float(valor)
-    minimo =  float(medidas[1])
-    maximo = float(medidas[2])
-    
+    minimo = float(minimo)
+    maximo = float(maximo)
     if minimo <= valor <= maximo:
         return True
     
@@ -492,51 +491,56 @@ def ingresar_medidas(estacion):
     la función retorna None.
     """
     
-    limites = mn.obtener_limites()
-    valores = []
+    valores = mn.obtener_limites()
+    medidas = []
     
-    for limite in limites:
-        valores.append(re.split('\[|\]|,|\:', limite)[:-1])
-    
-    while True:
-        pm10 = input('Digite el valor numérico de las partículas PM10 o ND si no está disponible. -1 para salir: ').strip()
-        resp = validar_medidas(pm10.upper(), valores[0])
-        if pm10 == '-1':
-            return
-        if resp:
-            break
-        print('Valor de PM10 no valido. Reintente')
-    
-    while True:
-        pm25 = input('Digite el valor numérico de las partículas PM25 o ND si no está disponible. -1 para salir: ').strip()
-        resp = validar_medidas(pm25.upper(), valores[1])
-        if pm25 == '-1':
-            return
-        if resp:
-            break
-        print('Valor de PM25 no valido. Reintente')
-        
-    while True:
-        temp = input('Digite el valor numérico de la temperatura o ND si no está disponible. -1 para salir: ').strip()
-        resp = validar_medidas(temp.upper(), valores[2])
-        if temp == '-1':
-            return
-        if resp:
-            break
-        print('Valor de temperatura no valido. Reintente')
-        
-    while True:
-        humedad = input('Digite el valor numérico de la humedad o ND si no está disponible. -1 para salir: ').strip()
-        resp = validar_medidas(humedad.upper(), valores[3])
-        if humedad == '-1':
-            return
-        if resp:
-            break
-        print('Valor de la humedad no valido. Reintente')
-    
-    mn.agregar_medida(estacion, (pm10, pm25, temp, humedad))
+    for medida in valores:
+        while True:
+            print('Escriba el valor numérico de las partículas {0} o ND si no está disponible. -1 para salir'.format(medida[0]))
+            lectura = input().strip()
+            if lectura == '-1':
+                return
+            resp = validar_medidas(lectura.upper(), medida[1], medida[2])
+            if resp:
+                medidas.append(lectura)
+                break
+            else:
+                print('Valor ingresado no valido')
+            
+    mn.agregar_medida(estacion, medidas)
     return True
    
+def listar_medidas(codigo, estacion):
+    """
+    Esta función recibe un string correspondiente al código de la estación
+    y un diccionario con los datos de la estación
+    sobre la que se van a listar las medidas. Luego, hace un llamado
+    a la función consultar_medidas_estaciones la cual le retorna
+    un iterable donde cada elemento son las medidas de la estación correspondiente
+    """
+    medidas = mn.consultar_medidas_estaciones(codigo)
+    nombre, municipio = estacion[codigo]
+    limites = mn.obtener_limites()
+    encabezados = ["Fecha"]
+    datos = []
+    tamanho = [19]
+    print("""
+    Nombre estacion:    {0}
+    Municipio estacion: {1}
+    """.format(nombre, municipio), end="")
+    
+    for i in limites:
+        encabezados.append(i[0]+ " " + i[3])
+    for i in range(len(limites)):
+        tamanho.append(7)
+    for medida in medidas:
+        aux = [medida[0]]
+        aux += re.split(';|{|}|,', medida[2])[1:-1]
+        datos.append(aux)
+    
+        
+    utils.imprimir_tabla(datos, tamanho, encabezados)
+    
 def menu_operador():
     """
     Esta función representa el menú del operador,
@@ -559,8 +563,6 @@ def menu_operador():
           ''')
         opc = input()
         if opc == '3':
-            global user_actual
-            user_actual = ""
             return
         if opc != "1" and opc != "2":
             print('Digitó una opción no valida. Reintente')
@@ -583,6 +585,8 @@ def menu_operador():
                 print('Se agregaron las medidas satisfactoriamente')
             else:
                 print('No se agregaron medidas nuevas')
+        else:
+            listar_medidas(codigo_estacion, estacion)
 
 def menu_administrador():
     """
@@ -602,8 +606,6 @@ def menu_administrador():
             3. Gestionar usuarios
             ''')
         if opc == '1':
-            global user_actual
-            user_actual = ""
             return
         if opc == '2':
             gestionar_estaciones()
@@ -612,8 +614,57 @@ def menu_administrador():
         else:
             print('Seleccionó una opción no valida. Reintente asdasd')
 
+
 def usuario_visitante():
-    pass
+    """
+    Esta función es el menu principal de los usuarios no registrados.
+    Primero se debe elegir la fecha entre las tres opciones posibles
+    ultimos 7 días, últimos 30 días o manualmente
+    """
+    while True:
+        opc = input('''
+    Seleccione las fechas para ver los datos:
+    1. Últimos 7 días
+    2. Últimos 30 días
+    3. Manualmente
+    4. Salir            
+    ''')
+        if opc.isnumeric():
+            opc = int(opc)
+            if 1 <= opc <= 3:
+                break
+            if opc == 4:
+                return
+        print('No ha seleccionado una opción valida')
+        
+    variables = set()
+    nombres_medidas = mn.obtener_limites()
+    
+    while True:
+        i = 1
+        for nombre in nombres_medidas:
+            print(i,'',nombre[0])
+            i += 1
+        print(i,"Seleccionar todo")
+        print(0,"Terminar la selección")
+        print(-1,"Salir sin seleccionar")
+        opc = input("Seleccione las variables que quiere visualizar\n")
+        
+        if opc == '-1':
+            return
+        if opc.isnumeric():
+            opc = int(opc)
+            if opc == 0:
+                break
+            if opc == i:
+                variables = {0,1,2,3}
+                break
+            if 1 <= opc <= 4:
+                variables.add(opc-1)
+                continue
+        print('Seleccionó una opción no valida')
+    
+    print(variables)
 
 def inicio_sesion():
     """
@@ -654,9 +705,10 @@ def usuario_registrado():
     según.
     """
     global user_actual
+    user_actual = ""
     
-    if user_actual == "":
-        perfil = inicio_sesion()
+    
+    perfil = inicio_sesion()
     
     if not perfil:
         return

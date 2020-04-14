@@ -58,7 +58,7 @@ def imprimir_tabla(tabla, ancho, encabezado=None):
             linea += ('+'+sep*(ancho[i]-1))
         linea = linea[:-1]+'+'
         print(linea)
-        
+
     def imprimir_celda(texto, impresos, relleno):
         '''
         texto: Texto que se va a colocar en la celda
@@ -84,12 +84,12 @@ def imprimir_tabla(tabla, ancho, encabezado=None):
             print(' '*(relleno-(len(texto) - impresos)),end='')
             impresos = len(texto)
         return impresos
-    
+
     def imprimir_fila(fila):
         '''
         fila: Lista con los textos de las celdas de la fila
         '''
-        impresos = []   
+        impresos = []
         alto = 1
         for i in range(len(fila)):
             impresos.append(0)
@@ -112,16 +112,22 @@ def imprimir_tabla(tabla, ancho, encabezado=None):
                     print(' |')
                 else:
                     impresos[j] = imprimir_celda(fila[j], impresos[j], relleno)
-                    print(' | ',end='')   
+                    print(' | ',end='')
     if not len(tabla) > 0:
         return
     if not type(tabla[0]) is list:
         return
     ncols = len(tabla[0])
     if type(ancho) == type(0):
-        ancho = [ancho+3]*ncols 
+        if ancho < 0:
+            print('Error. El ancho debe ser entero positivo')
+            return
+        ancho = [ancho+3]*ncols
     elif type(ancho) is list:
         for i in range(len(ancho)):
+            if ancho[i] < 0:
+                print('Error. El ancho debe ser entero positivo')
+                return
             ancho[i]+=3
     else:
         print('Error. El ancho debe ser un entero o una lista de enteros')

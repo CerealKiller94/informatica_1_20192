@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import re
 
 """
 Created on Mon Mar 30 11:28:35 2020
@@ -66,8 +67,10 @@ def leer_datos():
                 elif registro[1] == ',':
                     estacion = procesar_linea(registro, ',')
                     estaciones[estacion[0]] = estacion[1:]
-                elif registro.startswith('PM10'):
-                    limites = procesar_linea(registro, ';')
+                elif '[' in registro:
+                    linea = registro.split(';')
+                    for limite in linea:
+                        limites.append(re.split('\[|\]|,|\:', limite)[:-1])
                 else:
                     mediciones.append(procesar_linea(registro, ';'))
                 
@@ -176,8 +179,12 @@ def escribir_limites(archivo):
     y escribe en el, el string correspondiente a los limites.
     No retorna"""
     global limites
-    archivo.write(";".join(limites))
-    archivo.write('\n\n')
+    escribir = ""
+    for limite in limites:
+        escribir += limite[0]+"["+limite[1]+":"+limite[2]+","+limite[3]+"]"+";"
+    archivo.write(escribir.strip(';'))
+    archivo.write('\n\n') 
+
 
 def escribir_medidas(archivo):
     """Esta función recibe el archivo a escribir
@@ -294,9 +301,21 @@ def agregar_medida(estacion, medidas):
     global mediciones
     fecha = str(datetime.datetime.now().replace(microsecond=0))
     medida = '{'
-    medida += """{0},{1},{2},{3}""".format(*medidas)
+    for valores in medidas:
+        medida += valores+","
+    medida = medida.strip(',')
     medida += '}'
     medida = medida.replace("ND", "-999")
     mediciones.append([fecha, str(estacion), medida])
+    print(mediciones)
     return True
+
+def consultar_medidas_estaciones(codigo):
+    """
+    Esta función recibe el código de la estación y consulta
+    las medidas asociadas a dicha estación. Luego, retorna un iterable
+    con las medidas asociadas a la estación y su nombre
+    """
+    global mediciones
+    return (medida for medida in mediciones if medida[1] == codigo)
     
