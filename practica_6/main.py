@@ -747,7 +747,10 @@ def usuario_visitante():
         if opc.isnumeric():
             opc = int(opc)
             if opc == 0:
-                break
+                if variables:
+                    break
+                print('No ha seleccionado ninguna variable')
+                continue
             if opc == i:
                 variables = {i for i in range(len(nombres_medidas))}
                 break
@@ -755,7 +758,7 @@ def usuario_visitante():
                 variables.add(opc-1)
                 continue
         print('Seleccionó una opción no valida')
-        
+    
     while True:
         opc = input("""
         1. Para agregar un municipio
@@ -775,14 +778,19 @@ def usuario_visitante():
         if opc == "4":
             return
         if opc == "3":
-            break
+            if municipios:
+                break
+            print('No ha seleccionado ningún municipio')
+            continue
         else:
             print('Opción no valida')
         
         
     for municipio in municipios:
-        mn.analizar_medidas(municipio, variables, dias)
-    
+        for variable in variables:
+            res = mn.analizar_medidas(municipio, variable, dias)
+            if res:
+                print(res)
 
 def inicio_sesion():
     """

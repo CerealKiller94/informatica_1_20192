@@ -305,7 +305,7 @@ def agregar_medida(estacion, medidas):
         medida += valores+","
     medida = medida.strip(',')
     medida += '}'
-    medida = medida.replace("ND", "-999")
+    medida = medida.replace("ND", "-999.0")
     mediciones.append([fecha, str(estacion), medida])
     print(mediciones)
     return True
@@ -373,35 +373,61 @@ def obtener_resultados(valores):
     
     return minimo,maximo,promedio
     
-def procesar_datos(variables, analisis):
+def procesar_datos(variable, analisis):
     """
-    Esta función recibe las medidas a analizar y las variables sobre
-    las que se realizará el analisis. Las variables son una estructura
-    de tipo conjunto, y las medidas de analisis son una lista
+    Esta función recibe las medidas a analizar y la variable sobre
+    la que se realizará el analisis. La variable es un string
+    que representa la posición dentro
+    de la lista de limites, y las medidas de analisis son una lista
+    con todos los datos de las medidas.
+    La función retorna una lista 
     """
     global limites
     global estaciones
     medidas = []
     valores = []
     resultados = []
+    medidas_minimo = []
+    medidas_maximo = []
+    
     for medicion in analisis:
         aux = re.split('\{|\}|,',medicion[2][1:-1])
         medidas.append([medicion[0:2]]+[aux])
     
-    for variable in variables:
-        for medida in medidas:
-            valor = medida[1][int(variable)]
+    for medida in medidas:
+        valor = medida[1][int(variable)]
+        valor = float(valor)
+        if valor != -999.0:
             valores.append(float(valor))
-        minimo, maximo, promedio = obtener_resultados(valores)
-                
+    minimo, maximo, promedio = obtener_resultados(valores)
+    
+    for medida in medidas:
+        valor = medida[1][int(variable)]
+        if float(valor) == minimo:
+            cod_estacion = medida[0][1]
+            nombre = estaciones[cod_estacion][0]
+            fecha = medida[0][0]
+            medida_nombre = limites[int(variable)][0]
+            medidas_minimo.append([nombre, fecha, medida_nombre, valor])
+        elif float(valor) == maximo:
+            cod_estacion = medida[0][1]
+            nombre = estaciones[cod_estacion][0]
+            fecha = medida[0][0]
+            medida_nombre = limites[int(variable)][0]
+            medidas_maximo.append([nombre, fecha, medida_nombre, valor])
+    
+    resultados = [medidas_minimo, medidas_maximo, [promedio]]
+    return resultados
+            
 
 def analizar_medidas(municipio, variables, dias):
     """
     Esta función recibe un string con el código de un municipio,
-    la medida a procesar, las fechas de analisis que puede ser
+    la medida a procesar, las fechas de analisis que pueden ser
     un string numerico que representa la cantidad de dias para analizar,
     o un string con dos fechas separadas por punto y coma ; 
-    en caso de que el usuario quiera usar fechas propias.
+    en caso de que el usuario quiera usar fechas propias y la variable
+    a analizar.
     Primero: la función obtiene las estaciones asociadas a un municipio
     Segundo: si hay estaciones asociadas a ese municipio, la función obtiene las medidas
     de esas estaciones
@@ -427,8 +453,7 @@ def analizar_medidas(municipio, variables, dias):
     
     for medida in medidas_estacion:
         if dias.isnumeric():
-            dias = int(dias)
-            if validar_rango_fecha(fecha=medida[0], dias=dias):
+            if validar_rango_fecha(fecha=medida[0], dias=int(dias)):
                 medidas_analisis.append(medida)
         else:
             inicio, final = dias.split(';')
@@ -441,7 +466,7 @@ def analizar_medidas(municipio, variables, dias):
         return False
     
     resultados = procesar_datos(variables, medidas_analisis)   
-   
+    return resultados
     
     
     
