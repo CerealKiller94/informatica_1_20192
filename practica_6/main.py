@@ -614,6 +614,88 @@ def menu_administrador():
         else:
             print('Seleccionó una opción no valida. Reintente asdasd')
 
+def validar_fecha(fecha):
+    
+    """
+    Esta función recibe un string que representa
+    una fecha y valida si tiene un formato de
+    YYY-MM-DD valido.
+    Retorna True si el string tiene un formato valido
+    y en cualquier otro caso retorna False
+    """
+    
+    contador_guiones = 0
+    valida = False
+    
+    for caracter in fecha:
+        if caracter == '-':
+            contador_guiones += 1
+    
+    if contador_guiones == 2:
+        anho, mes, dia = fecha.split('-')
+    
+        if anho.isnumeric() and mes.isnumeric() and dia.isnumeric():
+            anho = int(anho)
+            mes = int(mes)
+            dia = int(dia)
+            
+            if anho >= 0:
+                if (mes == 1 or mes == 3 or mes == 5 or mes == 7 or 
+                    mes == 8 or mes == 10 or mes == 12) and 1 <= dia <= 31:
+                    valida = True
+                elif (mes == 4 or mes == 6 or mes == 9 or mes == 11) and 1 <= dia <= 30:
+                    valida = True
+                elif mes == 2 and dia == 29:
+                    if anho % 4 == 0:
+                        if anho % 100 == 0:
+                            if anho % 400 == 0:
+                                valida = True
+                            else:
+                                valida = False
+                        else:
+                            valida = True
+                    else:
+                        valida = False
+                elif mes == 2 and 1 <= dia <= 28:
+                    valida = True
+                else:
+                    valida = False
+            else:
+                valida = False
+                
+        else:
+            valida = False
+    else:
+        valida = False
+        
+    if valida:
+        return True
+    return False
+
+def leer_fechas():
+    """
+    Esta función lee dos fechas y valida que tengan el formato
+    YYYY-MM-DD válido, si las fechas cumplen con la validación retorna
+    un string con ambas fechas separadas por punto y coma (;). Si el usuario
+    decide salir en cualquier momento retorna un booleano False
+    """
+    while True:
+        inicio = input('Escriba la fecha inicial en formato YYYY-MM-DD o -1 para salir: ').strip()
+        if inicio == '-1':
+            return False
+        if validar_fecha(inicio):
+            break
+        print('La fecha digitada no tiene un formato valido')
+    
+    while True:
+        final = input('Escriba la fecha final en formato YYYY-MM-DD o -1 para salir: ').strip()
+        if final == '-1':
+            return False
+        if validar_fecha(final):
+            break
+        print('La fecha digitada no tiene un formato valido')
+        
+    return inicio+";"+final
 
 def usuario_visitante():
     """
@@ -631,7 +713,16 @@ def usuario_visitante():
     ''')
         if opc.isnumeric():
             opc = int(opc)
-            if 1 <= opc <= 3:
+            if opc == 1:
+                dias = "7"
+                break
+            elif opc == 2:
+                dias = "30"
+                break
+            elif opc == 3:
+                dias = leer_fechas()
+                if not dias:
+                    return
                 break
             if opc == 4:
                 return
@@ -688,10 +779,10 @@ def usuario_visitante():
         else:
             print('Opción no valida')
         
-            
+        
+    for municipio in municipios:
+        mn.analizar_medidas(municipio, variables, dias)
     
-    print(variables)
-    print(municipios)
 
 def inicio_sesion():
     """

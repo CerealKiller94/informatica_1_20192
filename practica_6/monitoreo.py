@@ -318,4 +318,134 @@ def consultar_medidas_estaciones(codigo):
     """
     global mediciones
     return (medida for medida in mediciones if medida[1] == codigo)
+
+def obtener_estaciones_municipio(municipio):
+    """
+    Esta función obtiene el municipio de una estación
+    y retorna todas las estaciones asociadas a ese municipio
+    dentro un diccionario llamado consulta que contendrá
+    las estaciones de ese municipio
+    """
+    global estaciones
+    consulta = {}
+    for key, values in estaciones.items():
+        if values[1] == municipio:
+            consulta[key] = values
+            
+    return consulta
+        
+
+def validar_rango_fecha(fecha, inicio=None, fin=None, dias=0):
+    """
+    Esta función valida que fechas están en un rango determinado.
+    Recibe una fecha inicial o final en forma de string que son opcionales
+    o un valor numérico de dias si se quiere analizar una fecha
+    sobre un rango determinado, además de la fecha a analizar que es 
+    obligatoria. Devuelve True o False si la fecha está en el rango
+    """
+    fecha = datetime.datetime.strptime(fecha, '%Y-%m-%d %H:%M:%S')
+    if inicio is None:
+        limite = datetime.datetime.now() - datetime.timedelta(days=dias)
+        if limite <= fecha:
+            return True
+        return False
+    else:
+        inicio = datetime.datetime.strptime(inicio, '%Y-%m-%d')
+        fin = datetime.datetime.strptime(fin, '%Y-%m-%d')
+        if inicio > fin:
+            aux = inicio
+            inicio = fin
+            fin = aux
+        if inicio <= fecha <= fin:
+            return True
+        return False
+        
+def obtener_resultados(valores):
+    """
+    Esta función recibe una lista con
+    las medidas a las que se les va a sacar
+    el mínimo, el máximo y el promedio. 
+    Retorna una tupla con los tres valores
+    """
+    minimo = min(valores)
+    maximo = max(valores)
+    promedio = sum(valores)/len(valores)
+    
+    return minimo,maximo,promedio
+    
+def procesar_datos(variables, analisis):
+    """
+    Esta función recibe las medidas a analizar y las variables sobre
+    las que se realizará el analisis. Las variables son una estructura
+    de tipo conjunto, y las medidas de analisis son una lista
+    """
+    global limites
+    global estaciones
+    medidas = []
+    valores = []
+    resultados = []
+    for medicion in analisis:
+        aux = re.split('\{|\}|,',medicion[2][1:-1])
+        medidas.append([medicion[0:2]]+[aux])
+    
+    for variable in variables:
+        for medida in medidas:
+            valor = medida[1][int(variable)]
+            valores.append(float(valor))
+        minimo, maximo, promedio = obtener_resultados(valores)
+                
+
+def analizar_medidas(municipio, variables, dias):
+    """
+    Esta función recibe un string con el código de un municipio,
+    la medida a procesar, las fechas de analisis que puede ser
+    un string numerico que representa la cantidad de dias para analizar,
+    o un string con dos fechas separadas por punto y coma ; 
+    en caso de que el usuario quiera usar fechas propias.
+    Primero: la función obtiene las estaciones asociadas a un municipio
+    Segundo: si hay estaciones asociadas a ese municipio, la función obtiene las medidas
+    de esas estaciones
+    Tercero: la función filtra las mediciones que estén en el 
+    rango de tiempo determinado
+    """
+    
+    medidas_estacion = []
+    medidas_analisis = []
+    estaciones_municipio = obtener_estaciones_municipio(municipio)
+    if not estaciones_municipio:
+        print('El municipio no tiene estaciones')
+        return False
+    
+    codigos_estaciones = tuple(estaciones_municipio.keys())
+    for medida in mediciones:
+        if medida[1] in codigos_estaciones:
+            medidas_estacion.append(medida)
+    
+    if not medidas_estacion:
+        print('La estación no tiene medidas asociadas')
+        return False
+    
+    for medida in medidas_estacion:
+        if dias.isnumeric():
+            dias = int(dias)
+            if validar_rango_fecha(fecha=medida[0], dias=dias):
+                medidas_analisis.append(medida)
+        else:
+            inicio, final = dias.split(';')
+            if validar_rango_fecha(fecha=medida[0], inicio=inicio, fin=final):
+                medidas_analisis.append(medida)
+                
+                
+    if not medidas_analisis:
+        print('No se encontraron medidas para ese periodo de tiempo')
+        return False
+    
+    resultados = procesar_datos(variables, medidas_analisis)   
+   
+    
+    
+    
+    
+    
+    
     
