@@ -204,8 +204,7 @@ def eliminar_usuario():
               Perfil: {2}'''.format(*user))
         conf = input('¿Está seguro de que quiere eliminar al usuario? s/n ').lower()
         if conf == 's':
-            mn.eliminar_usuario(documento)
-            break
+            return mn.eliminar_usuario(documento)
         elif conf == 'n':
             print('No se eliminará')
             return False
@@ -523,7 +522,7 @@ def listar_medidas(codigo, estacion):
     limites = mn.obtener_limites()
     encabezados = ["Fecha"]
     datos = []
-    tamanho = [19]
+    tamanho = [20]
     print("""
     Nombre estacion:    {0}
     Municipio estacion: {1}
@@ -532,14 +531,14 @@ def listar_medidas(codigo, estacion):
     for i in limites:
         encabezados.append(i[0]+ " " + i[3])
     for i in range(len(limites)):
-        tamanho.append(7)
+        tamanho.append(10)
     for medida in medidas:
         aux = [medida[0]]
         aux += re.split(';|{|}|,', medida[2])[1:-1]
         datos.append(aux)
     
         
-    utils.imprimir_tabla(datos, tamanho, encabezados)
+    utils.imprimir_tabla(datos, tamanho[:], encabezados[:])
     
 def menu_operador():
     """
@@ -701,7 +700,10 @@ def usuario_visitante():
     """
     Esta función es el menu principal de los usuarios no registrados.
     Primero se debe elegir la fecha entre las tres opciones posibles
-    ultimos 7 días, últimos 30 días o manualmente
+    ultimos 7 días, últimos 30 días o manualmente. Luego 
+    hace llamados a la función del módulo que retorna los valores
+    que se mostrarán en tabla e imprime cada uno de los valores
+    seleccionados para cada municipio.
     """
     while True:
         opc = input('''
@@ -784,13 +786,23 @@ def usuario_visitante():
             continue
         else:
             print('Opción no valida')
-        
-        
+    
+    encabezados = ['Estacion', "Fecha", "Medida", 'Valor', 'Tipo', 'Promedio']
+    tamanho = [30, 21, 13, 6, 7, 8]
+    
     for municipio in municipios:
         for variable in variables:
             res = mn.analizar_medidas(municipio, variable, dias)
             if res:
-                print(res)
+                if res == -1:
+                    continue
+                print('Presione ENTER para continuar')
+                input() 
+                utils.limpiar_pantalla()
+                utils.imprimir_tabla(res, tamanho.copy(), encabezados)   
+            else:
+                break
+            
 
 def inicio_sesion():
     """

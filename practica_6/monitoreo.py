@@ -202,7 +202,7 @@ def escribir_archivo():
     función que escribe cada una de las estructuras de datos,
     con su respectivo formato
     """
-    with open('escribir_prueba.txt', 'w') as archivo:
+    with open('registros.txt', 'w') as archivo:
         escribir_usuarios(archivo)
         escribir_municipios(archivo)
         escribir_estaciones(archivo)
@@ -212,10 +212,10 @@ def escribir_archivo():
 
 def obtener_municipios():
     """
-    Esta función retorna una copia del diccionario de municipios
+    Esta función retorna la tupla de municipios
     """
     global municipios
-    return municipios[:]
+    return municipios
 
 def crear_estacion(nombre, municipio):
     """Esta función agrega una nueva estación al diccionario de estaciones.
@@ -307,7 +307,6 @@ def agregar_medida(estacion, medidas):
     medida += '}'
     medida = medida.replace("ND", "-999.0")
     mediciones.append([fecha, str(estacion), medida])
-    print(mediciones)
     return True
 
 def consultar_medidas_estaciones(codigo):
@@ -399,6 +398,8 @@ def procesar_datos(variable, analisis):
         valor = float(valor)
         if valor != -999.0:
             valores.append(float(valor))
+        if not valores:
+            return False
     minimo, maximo, promedio = obtener_resultados(valores)
     
     for medida in medidas:
@@ -408,15 +409,15 @@ def procesar_datos(variable, analisis):
             nombre = estaciones[cod_estacion][0]
             fecha = medida[0][0]
             medida_nombre = limites[int(variable)][0]
-            medidas_minimo.append([nombre, fecha, medida_nombre, valor])
-        elif float(valor) == maximo:
+            medidas_minimo = [nombre, fecha, medida_nombre, valor, 'Minimo', promedio]
+            resultados.append(medidas_minimo[:])      
+        if float(valor) == maximo:
             cod_estacion = medida[0][1]
             nombre = estaciones[cod_estacion][0]
             fecha = medida[0][0]
             medida_nombre = limites[int(variable)][0]
-            medidas_maximo.append([nombre, fecha, medida_nombre, valor])
-    
-    resultados = [medidas_minimo, medidas_maximo, [promedio]]
+            medidas_maximo = [nombre, fecha, medida_nombre, valor, 'Maximo', promedio]
+            resultados.append(medidas_maximo[:])
     return resultados
             
 
@@ -432,14 +433,19 @@ def analizar_medidas(municipio, variables, dias):
     Segundo: si hay estaciones asociadas a ese municipio, la función obtiene las medidas
     de esas estaciones
     Tercero: la función filtra las mediciones que estén en el 
-    rango de tiempo determinado
+    rango de tiempo determinado.
+    False si el municipio no tiene medidas asociadas o si las estaciones de ese
+    municipio no tiene medidas asociadas
+    Una lista con los valores de las medidas minimas, máximas y promedio 
+    de la medida asociada a la estación de ese municipio
+        -1
     """
-    
+
     medidas_estacion = []
     medidas_analisis = []
     estaciones_municipio = obtener_estaciones_municipio(municipio)
     if not estaciones_municipio:
-        print('El municipio no tiene estaciones')
+        print('{} no tiene estaciones asociadas'.format(municipio))
         return False
     
     codigos_estaciones = tuple(estaciones_municipio.keys())
@@ -448,7 +454,7 @@ def analizar_medidas(municipio, variables, dias):
             medidas_estacion.append(medida)
     
     if not medidas_estacion:
-        print('La estación no tiene medidas asociadas')
+        print('{} no tiene estaciones con medidas asociadas'.format(municipio))
         return False
     
     for medida in medidas_estacion:
@@ -462,10 +468,15 @@ def analizar_medidas(municipio, variables, dias):
                 
                 
     if not medidas_analisis:
-        print('No se encontraron medidas para ese periodo de tiempo')
+        print('No se encontraron medidas para ese periodo de tiempo en las estaciones de {}'.format(municipio))
         return False
     
-    resultados = procesar_datos(variables, medidas_analisis)   
+    resultados = procesar_datos(variables, medidas_analisis)
+    if not resultados:
+        global limites
+        print('''Las estaciones del municipio: {0} no tienen valores validos para la medida {1}
+              '''.format(municipio, limites[int(variables)][0]))
+        return -1
     return resultados
     
     
