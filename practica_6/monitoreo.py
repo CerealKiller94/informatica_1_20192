@@ -355,6 +355,8 @@ def validar_rango_fecha(fecha, inicio=None, fin=None, dias=0):
             aux = inicio
             inicio = fin
             fin = aux
+        elif inicio == fin:
+            fin = inicio + datetime.timedelta(days=1)
         if inicio <= fecha <= fin:
             return True
         return False
@@ -398,8 +400,8 @@ def procesar_datos(variable, analisis):
         valor = float(valor)
         if valor != -999.0:
             valores.append(float(valor))
-        if not valores:
-            return False
+    if not valores:
+        return False
     minimo, maximo, promedio = obtener_resultados(valores)
     
     for medida in medidas:

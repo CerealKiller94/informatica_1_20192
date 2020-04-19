@@ -1,0 +1,14 @@
+<1010101010;Mariana Montoya;1234;Administrador>
+<1017220389;Yonathan;Josiecore123-;Operador>
+<1234567890;Maria Brand;1234567890;Operador>
+
+:Angostura,Belmira,Briceño,Campamento,Carolina del Príncipe,Donmatías,Entrerríos,Gómez Plata,Guadalupe,Ituango,San Andrés de Cuerquia,San José de la Montaña,San Pedro de los Milagros,Santa Rosa de Osos,Toledo,Valdivia,Yarumal
+
+1,Parque La Plazuela,Ituango
+2,Parque Principal De Ituango,Ituango
+
+PM10[0.0:100.0,ug/m3];Temperatura[-20.0:50.0,°C];Humedad[0.0:100.0,%];Lluvia[0:100,mm/h]
+
+2020-04-18 18:37:09;2;{25,-15,70,50}
+2020-04-18 18:38:01;1;{25,27.2,25.3,25}
+2020-04-18 18:57:51;2;{15,-999.0,-999.0,-999.0}

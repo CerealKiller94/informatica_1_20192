@@ -3,7 +3,6 @@
 <1212121212;Camila Serna;1234;Administrador>
 <1313131313;Oscar Jaramillo;1234;Operador>
 <1231231233;Juan Carlos Sierra;123123;Administrador>
-<1017220389;Yonathan Lopez Mejia;josiecore123-;Administrador>
 
 :Medellín,Bello,Itagüí,Envigado,Caldas,Copacabana,La Estrella,Girardota,Sabaneta,Barbosa
 

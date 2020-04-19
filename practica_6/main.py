@@ -66,7 +66,7 @@ def nuevo_usuario():
     print(' --------  Crear usuario ---------')
     print('Escriba: -1 en cualquier momento para salir')
     while True:
-        documento = input('ID usuario: ')
+        documento = input('ID usuario: ').strip()
         if documento == '-1':
             return False
         if validar_documento(documento):
@@ -74,7 +74,7 @@ def nuevo_usuario():
         print('ID ingresado no valido')
         
     while True:
-        nombre = input('Nombre de usuario: ')
+        nombre = input('Nombre de usuario: ').strip()
         if nombre == '-1':
             return False
         if validar_nombre(nombre):
@@ -209,15 +209,14 @@ def eliminar_usuario():
             print('No se eliminará')
             return False
         
-def nueva_estacion():
+def listar_municipios():
     """
-    Esta función, que no recibe argumentos, es la encargada de
-    leer los datos para crear una nueva estación, validar su formato, enviarlos al módulo
-    monitoreo para validar si la estación ya existe o no y en caso
-    de que no exista, crea una nueva estación agregándola al diccionario
-    que se encuentra en el módulo.
+    Esta función permite listar los municipios almacenados
+    en el sistema y seleccionar un municipio de la lista.
+    Si el usuario decide salir retonar un valor False, o sino
+    retorna el valor del municipio seleccionado.
+    La función no recibe argumentos
     """
-    
     municipios = mn.obtener_municipios()
     while True:
         print('Seleccione un municipio de la lista o escriba -1 para salir: ')
@@ -230,14 +229,27 @@ def nueva_estacion():
         
         if opc.isnumeric():
             opc = int(opc)
-            if opc > 10 or opc < 1:
+            if opc > len(municipios) or opc < 1:
                 print('Digitó una opción no valida. Vuelva a intentar')
             else:
                 seleccion = municipios[opc-1]
                 break
         else:
             print('Digitó una opción no valida. Vuelva a intentar')
-            
+    
+    return seleccion
+
+def nueva_estacion():
+    """
+    Esta función, que no recibe argumentos, es la encargada de
+    leer los datos para crear una nueva estación, validar su formato, enviarlos al módulo
+    monitoreo para validar si la estación ya existe o no y en caso
+    de que no exista, crea una nueva estación agregándola al diccionario
+    que se encuentra en el módulo.
+    """
+    
+    seleccion = listar_municipios()
+    
     while True:
         nombre_estacion = input('Escriba el nombre de la nueva estacion o -1 para salir: ').strip()
         if nombre_estacion == "-1":
@@ -282,35 +294,7 @@ def seleccionar_estacion():
         else:
             print('No eligió una opción valida. Reintente')
             
-def listar_municipios():
-    """
-    Esta función permite listar los municipios almacenados
-    en el sistema y seleccionar un municipio de la lista.
-    Si el usuario decide salir retonar un valor False, o sino
-    retorna el valor del municipio seleccionado.
-    La función no recibe argumentos
-    """
-    municipios = mn.obtener_municipios()
-    while True:
-        print('Seleccione un municipio de la lista o escriba -1 para salir: ')
-        for numero, municipio in enumerate(municipios, 1):
-            print(numero, municipio)
-        opc = input()
-        
-        if opc == "-1":
-            return False
-        
-        if opc.isnumeric():
-            opc = int(opc)
-            if opc > len(municipios) or opc < 1:
-                print('Digitó una opción no valida. Vuelva a intentar')
-            else:
-                seleccion = municipios[opc-1]
-                break
-        else:
-            print('Digitó una opción no valida. Vuelva a intentar')
-    
-    return seleccion
+
   
 def editar_estacion():
     """
@@ -468,15 +452,19 @@ def validar_medidas(valor, minimo, maximo):
     """Esta función recibe el valor de las medidas
     que se quieren ingresar y los valores máximos y mínimos de la medida. Si el valor
     es ND o está entre los límites retorna True, sino, False"""
-    if valor == 'ND':
-        return True
-    valor = float(valor)
-    minimo = float(minimo)
-    maximo = float(maximo)
-    if minimo <= valor <= maximo:
-        return True
-    
-    return False
+    try:
+        if valor == 'ND':
+            return True
+        valor = float(valor)
+        minimo = float(minimo)
+        maximo = float(maximo)
+        if minimo <= valor <= maximo:
+            return True
+        
+        return False
+    except ValueError:
+        print('No se digitó un número')
+        return False
     
     
 def ingresar_medidas(estacion):
@@ -499,6 +487,9 @@ def ingresar_medidas(estacion):
             lectura = input().strip()
             if lectura == '-1':
                 return
+            elif lectura.isspace() or not lectura:
+                print('Medida no valida')
+                continue
             resp = validar_medidas(lectura.upper(), medida[1], medida[2])
             if resp:
                 medidas.append(lectura)
