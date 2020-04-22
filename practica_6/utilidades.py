@@ -1,35 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-def validar_nombre(nombre):
-    '''
-    Valida nombre válido (solo letras y espacios)
-    Argumentos:
-        nombre: String a validar
-    return -> Boolean (True or False) si es valido o no
-    '''
-    pass
-
-def validar_documento(documento):
-    '''
-    Valida un número de documento. Debe contener 10 caracteres, todos numéricos.
-    
-    Argumentos:
-        documento: string a validar
-    return -> Boolean (True or False) si es valido o no
-    '''
-    pass
-
-def validar_fecha(fecha):
-    '''
-    Valida que un string corresponda a una fecha válida (con formato yyyy-mm-dd).
-    
-    Argumentos:
-        fecha -> string a validar
-    return -> Boolean (True or False) si es valido o no
-    '''
-    pass
-
 def limpiar_pantalla():
     '''
     Imprime varias líneas en blanco, para dar la ilusión 

@@ -111,7 +111,27 @@ def nuevo_usuario():
         return False
     
     return True
-             
+  
+def listar_usuarios():
+    """Esta función permite seleccionar un usuario
+    del diccionario de usuarios. No tiene parámetros formales
+    y retorna el id del usuario seleccionado o False,
+    si no se selecciona ningún usuario"""
+    usuarios = mn.obtener_usuarios()
+    print('Seleccione escriba el ID del usuario de la lista o escriba -1 para salir: ')
+    for id_user, user_data in usuarios.items():
+        print("ID: {0} - Nombre: {1} - Rol: {2}".format(id_user, user_data[0], user_data[2]))
+        
+    while True:
+        id_usuario = input().strip()
+        if id_usuario in usuarios:
+            return id_usuario
+        if id_usuario == "-1":
+            return False
+        print('Escribió un id no válido. Corrija')
+            
+    
+           
 def editar_usuario():
     
     """Esta función permite editar el nombre,
@@ -119,15 +139,13 @@ def editar_usuario():
     editarlo devuelve True, sino, devuelve False"""
     print(' --------  Editar usuario ---------')
     print('Digite -1 en cualquier momento para salir: ')
-    documento = input('Escriba el ID del usuario: ').strip()
+    documento = listar_usuarios()
     
-    if documento == '-1':
+    if not documento:
         return False
+    
     user = mn.consultar_usuario(documento)
-    if user == -1:
-        print('El usuario no puede editarse pues no existe')
-        return False
- 
+    
     while True:
         print('Nombre de usuario actual: {}'.format(user[0]))
         nombre = input('Nuevo nombre de usuario o presione enter para no modificar: ').strip()
@@ -188,11 +206,10 @@ def eliminar_usuario():
     retorna False"""
     
     global user_actual
-    documento = input('Escriba el documento del usuario a eliminar: ').strip()
-    user = mn.consultar_usuario(documento)
-    if user == -1:
-        print('El usuario no existe y por tanto no se eliminará: ')
+    documento = listar_usuarios()
+    if not documento:
         return False
+    user = mn.consultar_usuario(documento)
     if documento == user_actual:
         print('El usuario actual no puede eliminarse')
         return False
@@ -233,6 +250,7 @@ def listar_municipios():
                 print('Digitó una opción no valida. Vuelva a intentar')
             else:
                 seleccion = municipios[opc-1]
+                print('Municipio: {}'.format(seleccion))
                 break
         else:
             print('Digitó una opción no valida. Vuelva a intentar')
@@ -290,6 +308,7 @@ def seleccionar_estacion():
                 print('No seleccionó una estación valida. Reintente')
             else:
                 opc = str(opc)
+                print('Se seleccionó la estación: {0}'.format(estaciones[opc][0]))
                 return opc, estaciones[opc]
         else:
             print('No eligió una opción valida. Reintente')
@@ -427,7 +446,6 @@ def seleccionar_estacion_municipio(municipio):
     una estación, se retorna la estación, si el usuario selecciona -1
     la función retorna False.
     """
-    print('Municipio seleccionado: {}'.format(municipio))
     estaciones = mn.consultar_estaciones_municipio(municipio)
     if not estaciones:
         print('En este municipio no hay estaciones registradas')
@@ -492,7 +510,7 @@ def ingresar_medidas(estacion):
                 continue
             resp = validar_medidas(lectura.upper(), medida[1], medida[2])
             if resp:
-                medidas.append(lectura)
+                medidas.append(lectura.upper())
                 break
             else:
                 print('Valor ingresado no valido')

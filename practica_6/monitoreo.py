@@ -38,6 +38,11 @@ def procesar_linea(linea, separador, inicio='', final=''):
     linea = linea.strip(final)
     return linea.split(separador)
 
+def obtener_usuarios():
+    """Esta función retorna una copia del diccionario de usuarios"""
+    global users
+    return users.copy()
+
 def leer_datos():
     """
     Esta función se encarga de leer y almacenar
@@ -70,7 +75,7 @@ def leer_datos():
                 elif '[' in registro:
                     linea = registro.split(';')
                     for limite in linea:
-                        limites.append(re.split('\[|\]|,|\:', limite)[:-1])
+                        limites.append(re.split('\[|\]|,|\:', limite))
                 else:
                     mediciones.append(procesar_linea(registro, ';'))
                 
