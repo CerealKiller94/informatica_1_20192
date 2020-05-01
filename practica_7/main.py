@@ -10,70 +10,127 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
 # Funciones propias
-from sortfunc import *
+from sortfunc import loadFromFile, sortBurbuja, sortSeleccion, createRandomList
+
+def popup_msg(msg):
+    pop_up = Tk()
+    pop_up.wm_title("Error")
+    label = ttk.Label(pop_up, text=msg, font=("Helvetica",12))
+    label.pack(side="top", fill="x", pady=10)
+    exit_button = ttk.Button(pop_up, text="Aceptar", command=pop_up.destroy)
+    exit_button.pack()
+    pop_up.mainloop()
 
 L_sin_ordenar=[]
 # Metodos de ordenamiento
 def animacionBurbuja():    
     global graficaDatos, L_sin_ordenar
-    abscisas = range(1,len(L_sin_ordenar)+1)
-    L = list(L_sin_ordenar)
-    '''
-    Ciclo externo:
-        ...
-        Ciclo interno:
-            ...
-        Fin ciclo interno
-        ...
-    '''
-    '''    
-        # Actualización de la gráfica
-        # (Descomentar una vez se haya implementado
-        # la función de selección)
+    L = L_sin_ordenar.copy()
+    abscisas = range(1,len(L)+1)
+    
+    is_unordered = True
+    iter_number = 0
+    final = 0
+    tamanho = len(L)
+    while is_unordered:
+        iter_number += 1
+        is_unordered = False
+        i = 0
+        final += 1
+        while i < tamanho-final:
+            iter_number += 1
+            if L[i] > L[i+1]:
+                L[i], L[i+1] = L[i+1], L[i]
+                is_unordered = True
+            i += 1
+        
         graficaDatos.clear()
         plt.pause(0.2)
-        graficaDatos.stem(abscisas, L)
+        graficaDatos.stem(abscisas, L, use_line_collection = True)
         graficaDatos.grid() # Grid on
-        canvas.draw()        
-    '''    
-    '''Fin ciclo externo'''
+        canvas.draw()
+    
+    return iter_number
 
 def animacionSeleccion():
     global graficaDatos, L_sin_ordenar
-    L = list(L_sin_ordenar)
-    abscisas = range(1,len(L_sin_ordenar)+1)
-    '''
-    Ciclo externo:
-        ...
-        Ciclo interno:
-            ...
-        Fin ciclo interno
-        ...
-    '''
-    '''     
-        # Actualización de la gráfica
-        # (Descomentar una vez se haya implementado
-        # la función de selección)
+    L = L_sin_ordenar.copy()
+    abscisas = range(1,len(L)+1)
+    
+    inicio = 0
+    tamanho = len(L)
+    iter_number = 0
+    
+    while inicio < tamanho-1:
+        
+        iter_number += 1
+        i = inicio + 1
+        menor_indx = inicio
+        while i < tamanho:
+            iter_number += 1
+            if L[menor_indx] > L[i]:
+                menor_indx = i
+            i += 1
+        L[inicio], L[menor_indx] = L[menor_indx], L[inicio]
+        inicio += 1
+        
         graficaDatos.clear()
         plt.pause(0.2)
-        graficaDatos.stem(abscisas, L)
+        graficaDatos.stem(abscisas, L, use_line_collection=True)
         graficaDatos.grid()        
         canvas.draw()
-    '''
-    '''Fin ciclo externo'''
+    
+    return iter_number
         
 # Funciones handler
 
 def generarLista():
     global L_sin_ordenar, minimo, maximo, nMuestras
-    n = int(nMuestras.get())
-    L_sin_ordenar = []
+    
     '''
-    Generar lista aleatoria en L_sin_ordenar del tamaño especificado por el usuario
-    '''    
+    Obtener los valores de las variables lowest y highest
+    simiar a como se obtuvo el valor de n
+    Tener en cuenta posibles errores de usuario (ingreso de letras, por ejemplo)
+    '''
+    
+    try:
+        n = int(nMuestras.get())
+        if n < 0:
+            msg = "Cantidad negativa de numeros a generar"
+            print(msg)
+            popup_msg(msg)
+            return
+        
+    except ValueError:
+        msg = "Cantidad de muestras no valido"
+        print(msg)
+        popup_msg(msg)
+        return 
+    try:
+        lowest = float(minimo.get())
+    except ValueError:
+        msg = "El valor del límite inferior no es un número valido "
+        print(msg)
+        popup_msg(msg)
+        return
+    try:
+        highest = float(maximo.get())
+        if lowest > highest:
+            msg = "El valor del límite superior no puede ser menor que el limite inferior"
+            print(msg)
+            popup_msg(msg)
+            return
+    except ValueError:
+        msg = "El valor del límite superior no es un número valido "
+        print(msg)
+        popup_msg(msg)
+        return
+ 
+    
+    L_sin_ordenar = createRandomList(n, lowest, highest)
     x_axis = range(1,len(L_sin_ordenar)+1)        
     graficaDatos.clear()
-    graficaDatos.stem(x_axis, L_sin_ordenar)
+    graficaDatos.stem(x_axis, L_sin_ordenar, use_line_collection=True)
     graficaDatos.grid()
     canvas.draw()
 
@@ -88,7 +145,7 @@ def loadInputData():
         L_sin_ordenar = loadFromFile(fname)
         x_axis = range(1,len(L_sin_ordenar)+1)        
         graficaDatos.clear()
-        graficaDatos.stem(x_axis, L_sin_ordenar)
+        graficaDatos.stem(x_axis, L_sin_ordenar, use_line_collection=True)
         graficaDatos.grid()
         canvas.draw()
     elif source_selection.get() == 2:
@@ -127,15 +184,18 @@ def loadInputData():
         nMuestras = entryMuestras
         ventanaGenerador.mainloop()
     else:
-        print('Error en loadInputData')
+        msg = "Error en loadInputData"
+        print(msg)
+        popup_msg(msg)
 
 
 def sortHandler():    
+    from time import time
     global L_sin_ordenar, met, selPaso, box_value, graficaRendimiento
     # Ejecucion animada
-    L_burbuja = list(L_sin_ordenar)
-    L_seleccion = list(L_sin_ordenar)     
-    L_py = list(L_sin_ordenar)
+    L_burbuja = L_sin_ordenar.copy()
+    L_seleccion = L_sin_ordenar.copy()     
+    L_py = L_sin_ordenar.copy()
     abscisas = range(1,len(L_sin_ordenar)+1)
     graficaDatos.clear()
     # Ejecucion de los metodos elegidos
@@ -143,26 +203,32 @@ def sortHandler():
         if selPaso.get() == 1:
             animacionBurbuja()
         ''' Tomar medida inicial de tiempo '''
+        start = time()
         cycles = sortBurbuja(L_burbuja)
         ''' Tomar medida final de tiempo
-            Calcular tiempo de ejecución '''
-        
-        graficaDatos.stem(abscisas, L_burbuja)
+            Calcular tiempo de ejecución (t_elapsed)'''
+        t_elapsed = time()-start
+        graficaDatos.stem(abscisas, L_burbuja, use_line_collection=True)
     elif met.get() == 2:
         if selPaso.get() == 1:
             animacionSeleccion()
         ''' Tomar medida inicial de tiempo '''
+        start = time()
         cycles = sortSeleccion(L_seleccion)
         ''' Tomar medida final de tiempo
-            Calcular tiempo de ejecución '''
-        graficaDatos.stem(abscisas, L_seleccion)
+            Calcular tiempo de ejecución (t_elapsed)'''
+        t_elapsed = time()-start
+        graficaDatos.stem(abscisas, L_seleccion, use_line_collection=True)
     elif met.get() == 3:
         ''' Tomar medida inicial de tiempo '''
+        start = time()
         ''' Aplicar método sort de Python a L_py '''
+        L_py.sort()
         ''' Tomar medida final de tiempo
-            Calcular tiempo de ejecución '''
+            Calcular tiempo de ejecución (t_elapsed)'''
+        t_elapsed = time()-start
         cycles = 'No disponible'
-        graficaDatos.stem(abscisas, L_py)
+        graficaDatos.stem(abscisas, L_py, use_line_collection=True)
         
     print('Time in us: ', t_elapsed)
     print('Algorithm iterations: ', cycles)    
