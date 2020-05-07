@@ -24,8 +24,9 @@ def popup_msg(msg):
 L_sin_ordenar=[]
 # Metodos de ordenamiento
 def animacionBurbuja():    
-    global graficaDatos, L_sin_ordenar
+    global graficaDatos, L_sin_ordenar, sel_mayor_menor
     L = L_sin_ordenar.copy()
+    orden = sel_mayor_menor.get()
     abscisas = range(1,len(L)+1)
     
     is_unordered = True
@@ -39,22 +40,27 @@ def animacionBurbuja():
         final += 1
         while i < tamanho-final:
             iter_number += 1
-            if L[i] > L[i+1]:
-                L[i], L[i+1] = L[i+1], L[i]
-                is_unordered = True
+            if orden == 1:
+                if L[i] < L[i+1]:
+                    L[i], L[i+1] = L[i+1], L[i]
+                    is_unordered = True
+            else:
+                if L[i] > L[i+1]:
+                    L[i], L[i+1] = L[i+1], L[i]
+                    is_unordered = True
             i += 1
         
         graficaDatos.clear()
         plt.pause(0.2)
         graficaDatos.stem(abscisas, L, use_line_collection = True)
         graficaDatos.grid() # Grid on
-        canvas.draw()
+        canvas.draw()  
     
-    return iter_number
 
 def animacionSeleccion():
-    global graficaDatos, L_sin_ordenar
+    global graficaDatos, L_sin_ordenar, sel_mayor_menor
     L = L_sin_ordenar.copy()
+    orden = sel_mayor_menor.get()
     abscisas = range(1,len(L)+1)
     
     inicio = 0
@@ -65,13 +71,17 @@ def animacionSeleccion():
         
         iter_number += 1
         i = inicio + 1
-        menor_indx = inicio
+        indx = inicio
         while i < tamanho:
             iter_number += 1
-            if L[menor_indx] > L[i]:
-                menor_indx = i
+            if orden == 1:
+                if L[indx] < L[i]:
+                    indx = i
+            else:
+                if L[indx] > L[i]:
+                    indx = i
             i += 1
-        L[inicio], L[menor_indx] = L[menor_indx], L[inicio]
+        L[inicio], L[indx] = L[indx], L[inicio]
         inicio += 1
         
         graficaDatos.clear()
@@ -80,7 +90,6 @@ def animacionSeleccion():
         graficaDatos.grid()        
         canvas.draw()
     
-    return iter_number
         
 # Funciones handler
 
@@ -191,7 +200,7 @@ def loadInputData():
 
 def sortHandler():    
     from time import time
-    global L_sin_ordenar, met, selPaso, box_value, graficaRendimiento
+    global L_sin_ordenar, met, selPaso, box_value, graficaRendimiento, sel_mayor_menor
     # Ejecucion animada
     L_burbuja = L_sin_ordenar.copy()
     L_seleccion = L_sin_ordenar.copy()     
@@ -204,7 +213,7 @@ def sortHandler():
             animacionBurbuja()
         ''' Tomar medida inicial de tiempo '''
         start = time()
-        cycles = sortBurbuja(L_burbuja)
+        cycles = sortBurbuja(L_burbuja, sel_mayor_menor.get())
         ''' Tomar medida final de tiempo
             Calcular tiempo de ejecución (t_elapsed)'''
         t_elapsed = time()-start
@@ -214,7 +223,7 @@ def sortHandler():
             animacionSeleccion()
         ''' Tomar medida inicial de tiempo '''
         start = time()
-        cycles = sortSeleccion(L_seleccion)
+        cycles = sortSeleccion(L_seleccion, sel_mayor_menor.get())
         ''' Tomar medida final de tiempo
             Calcular tiempo de ejecución (t_elapsed)'''
         t_elapsed = time()-start
@@ -223,7 +232,10 @@ def sortHandler():
         ''' Tomar medida inicial de tiempo '''
         start = time()
         ''' Aplicar método sort de Python a L_py '''
-        L_py.sort()
+        if sel_mayor_menor.get() == 1:
+            L_py.sort(reverse=True)
+        else:
+            L_py.sort()
         ''' Tomar medida final de tiempo
             Calcular tiempo de ejecución (t_elapsed)'''
         t_elapsed = time()-start
@@ -296,6 +308,10 @@ sel.pack(side=TOP, anchor=W, expand=YES)
 # 2.4. Separador horizontal
 sep3 = Separator(fMethod,orient=HORIZONTAL)
 sep3.pack(side=TOP,fill=X, expand=False)
+# 2.6. Checkbox para seleccionar mayor a menor
+sel_mayor_menor = IntVar()
+paso = Checkbutton(fMethod, text="Mayor a menor", variable=sel_mayor_menor)
+paso.pack(side=TOP, anchor=W, expand=YES)
 # 2.5. Checkbox ejecucion paso a paso
 selPaso = IntVar()
 paso = Checkbutton(fMethod, text="Ver lento", variable=selPaso)

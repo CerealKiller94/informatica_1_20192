@@ -1,4 +1,4 @@
-from random import uniform, randint
+from random import uniform
 
 def loadFromFile(name):
     ''' 
@@ -13,9 +13,10 @@ def loadFromFile(name):
         
     return lista
 
-def sortBurbuja(L):
+def sortBurbuja(L, orden=0):
     ''' 
-        Recibe una lista de floats
+        Recibe una lista de floats y una entero que indica 
+        si la lista se ordenará de mayor a menor
         Retorna la cantidad de ciclos (int)
         que se toma el algoritmo de burbuja
         para ordenar la lista L
@@ -31,16 +32,22 @@ def sortBurbuja(L):
         final += 1
         while i < tamanho-final:
             iter_number += 1
-            if L[i] > L[i+1]:
-                L[i], L[i+1] = L[i+1], L[i]
-                is_unordered = True
+            if orden == 1:
+                if L[i] < L[i+1]:
+                    L[i], L[i+1] = L[i+1], L[i]
+                    is_unordered = True
+            else:
+                if L[i] > L[i+1]:
+                    L[i], L[i+1] = L[i+1], L[i]
+                    is_unordered = True
             i += 1
     
     return iter_number
 
-def sortSeleccion(L):
+def sortSeleccion(L, orden=0):
     ''' 
-        Recibe una lista de floats
+        Recibe una lista de floats y un número entero
+        que si vale 1 ordena la lista de mayor a menor.
         Retorna la cantidad de ciclos (int)
         que se toma el algoritmo de selección
         para ordenar la lista L
@@ -53,13 +60,17 @@ def sortSeleccion(L):
         
         iter_number += 1
         i = inicio + 1
-        menor_indx = inicio
+        indx = inicio
         while i < tamanho:
             iter_number += 1
-            if L[menor_indx] > L[i]:
-                menor_indx = i
+            if orden == 1:
+                if L[indx] < L[i]:
+                    indx = i
+            else:
+                if L[indx] > L[i]:
+                    indx = i
             i += 1
-        L[inicio], L[menor_indx] = L[menor_indx], L[inicio]
+        L[inicio], L[indx] = L[indx], L[inicio]
         inicio += 1
     
     return iter_number
@@ -77,13 +88,15 @@ def createRandomList(size, minimo, maximo):
     '''
     lista = []
     for i in range(size):
-        number = randint(minimo, maximo)
+        number = uniform(minimo, maximo)
         lista.append(number)
     
     return lista
 
-"""
-lista = createRandomList(400, 21.1, 10.5)
 
-print(sortBurbuja(lista[:]))
 """
+lista = createRandomList(20, 10, 50)
+
+print(sortSeleccion(lista[:], 1))
+"""
+
