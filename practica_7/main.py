@@ -152,6 +152,9 @@ def loadInputData():
         # Ventana para la seleccion del archivo
         fname = askopenfilename()        
         L_sin_ordenar = loadFromFile(fname)
+        if type(L_sin_ordenar) is str:
+            popup_msg(L_sin_ordenar)
+            return
         x_axis = range(1,len(L_sin_ordenar)+1)        
         graficaDatos.clear()
         graficaDatos.stem(x_axis, L_sin_ordenar, use_line_collection=True)
@@ -193,64 +196,72 @@ def loadInputData():
         nMuestras = entryMuestras
         ventanaGenerador.mainloop()
     else:
-        msg = "Error en loadInputData"
-        print(msg)
+        msg = "No hay datos de entrada validos"
         popup_msg(msg)
+        return
 
 
-def sortHandler():    
-    from time import time
-    global L_sin_ordenar, met, selPaso, box_value, graficaRendimiento, sel_mayor_menor
-    # Ejecucion animada
-    L_burbuja = L_sin_ordenar.copy()
-    L_seleccion = L_sin_ordenar.copy()     
-    L_py = L_sin_ordenar.copy()
-    abscisas = range(1,len(L_sin_ordenar)+1)
-    graficaDatos.clear()
-    # Ejecucion de los metodos elegidos
-    if met.get() == 1:
-        if selPaso.get() == 1:
-            animacionBurbuja()
-        ''' Tomar medida inicial de tiempo '''
-        start = time()
-        cycles = sortBurbuja(L_burbuja, sel_mayor_menor.get())
-        ''' Tomar medida final de tiempo
-            Calcular tiempo de ejecución (t_elapsed)'''
-        t_elapsed = time()-start
-        graficaDatos.stem(abscisas, L_burbuja, use_line_collection=True)
-    elif met.get() == 2:
-        if selPaso.get() == 1:
-            animacionSeleccion()
-        ''' Tomar medida inicial de tiempo '''
-        start = time()
-        cycles = sortSeleccion(L_seleccion, sel_mayor_menor.get())
-        ''' Tomar medida final de tiempo
-            Calcular tiempo de ejecución (t_elapsed)'''
-        t_elapsed = time()-start
-        graficaDatos.stem(abscisas, L_seleccion, use_line_collection=True)
-    elif met.get() == 3:
-        ''' Tomar medida inicial de tiempo '''
-        start = time()
-        ''' Aplicar método sort de Python a L_py '''
-        if sel_mayor_menor.get() == 1:
-            L_py.sort(reverse=True)
-        else:
-            L_py.sort()
-        ''' Tomar medida final de tiempo
-            Calcular tiempo de ejecución (t_elapsed)'''
-        t_elapsed = time()-start
-        cycles = 'No disponible'
-        graficaDatos.stem(abscisas, L_py, use_line_collection=True)
-        
-    print('Time in us: ', t_elapsed)
-    print('Algorithm iterations: ', cycles)    
-        
-    graficaDatos.grid() # Grid on
-    canvas.draw()
-    res_time.config(text = 'Tiempo: %.2f us' %(t_elapsed*10**6))
-    res_cycles.config(text = 'Iteraciones: '+str(cycles))
-
-
+def sortHandler():
+    try:
+        from time import time
+        global L_sin_ordenar, met, selPaso, box_value, graficaRendimiento, sel_mayor_menor
+        # Ejecucion animada
+        L_burbuja = L_sin_ordenar.copy()
+        L_seleccion = L_sin_ordenar.copy()     
+        L_py = L_sin_ordenar.copy()
+        abscisas = range(1,len(L_sin_ordenar)+1)
+        graficaDatos.clear()
+        # Ejecucion de los metodos elegidos
+        if met.get() == 1:
+            if selPaso.get() == 1:
+                animacionBurbuja()
+            ''' Tomar medida inicial de tiempo '''
+            start = time()
+            cycles = sortBurbuja(L_burbuja, sel_mayor_menor.get())
+            ''' Tomar medida final de tiempo
+                Calcular tiempo de ejecución (t_elapsed)'''
+            t_elapsed = time()-start
+            graficaDatos.stem(abscisas, L_burbuja, use_line_collection=True)
+        elif met.get() == 2:
+            if selPaso.get() == 1:
+                animacionSeleccion()
+            ''' Tomar medida inicial de tiempo '''
+            start = time()
+            cycles = sortSeleccion(L_seleccion, sel_mayor_menor.get())
+            ''' Tomar medida final de tiempo
+                Calcular tiempo de ejecución (t_elapsed)'''
+            t_elapsed = time()-start
+            graficaDatos.stem(abscisas, L_seleccion, use_line_collection=True)
+        elif met.get() == 3:
+            ''' Tomar medida inicial de tiempo '''
+            start = time()
+            ''' Aplicar método sort de Python a L_py '''
+            if sel_mayor_menor.get() == 1:
+                L_py.sort(reverse=True)
+            else:
+                L_py.sort()
+            ''' Tomar medida final de tiempo
+                Calcular tiempo de ejecución (t_elapsed)'''
+            t_elapsed = time()-start
+            cycles = 'No disponible'
+            graficaDatos.stem(abscisas, L_py, use_line_collection=True)
+            
+        print('Time in us: ', t_elapsed)
+        print('Algorithm iterations: ', cycles)    
+            
+        graficaDatos.grid() # Grid on
+        canvas.draw()
+        res_time.config(text = 'Tiempo: %.2f us' %(t_elapsed*10**6))
+        res_cycles.config(text = 'Iteraciones: '+str(cycles))
+    except UnboundLocalError:
+        popup_msg("No seleccionó un método de ordenamiento")
+        return
+    except AttributeError:
+        popup_msg("No hay valores validos para ordenar")
+        return
+    except ValueError:
+        popup_msg("Verifique los valores a ordenar")
+    
 '''**** Interfaz grafica ****'''
 
 ANCHO =650

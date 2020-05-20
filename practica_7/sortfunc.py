@@ -1,5 +1,6 @@
 from random import uniform
 
+
 def loadFromFile(name):
     ''' 
         Recibe el nombre de un archivo (str)
@@ -7,11 +8,15 @@ def loadFromFile(name):
         de los números extraídos del archivo name
     '''
     lista = []
-    with open(name, "r") as file:
-        for number in file:
-            lista.append(float(number.strip("\n")))
+    try:
+        with open(name, "r") as file:
+            for number in file:
+                lista.append(float(number.strip("\n")))
+            
+        return lista
+    except:
+        return "Archivo de texto no valido"
         
-    return lista
 
 def sortBurbuja(L, orden=0):
     ''' 
