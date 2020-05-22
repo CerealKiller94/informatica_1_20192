@@ -15,7 +15,10 @@ def loadFromFile(name):
             
         return lista
     except:
-        return "Archivo de texto no valido"
+        return """Archivo de texto no valido. Verifique
+    que sea un archivo .txt, que solo contenga
+    números separados por un salto de linea
+    """
         
 
 def sortBurbuja(L, orden=0):

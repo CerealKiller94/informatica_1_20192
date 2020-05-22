@@ -235,7 +235,52 @@ def hacer_prueba_caja_negra_seleccion():
               """)
 
 
-
+def pruebas_caja_blanca_burbuja():
+    """
+    Esta función hace pruebas de caja blanca al algoritmo
+    de burbuja
+    """
+    #Prueba con un arreglo vacío que no entra al ciclo más interno
+    lista = []
+    sortBurbuja(lista)
+    l_copy = lista.copy()
+    l_copy.sort()
+    assert lista == l_copy, "Las listas deben ser iguales. Falló el algortimo. Para listas vacías"
+    #Misma prueba pero de mayor a menor
+    lista = []
+    sortBurbuja(lista, orden=1)
+    l_copy = lista.copy()
+    l_copy.sort(reverse=True)
+    assert lista == l_copy, "Las listas deben ser iguales. Falló el algortimo. Para listas vacías en orden inverso"
+    #Prueba con una lista con solo dos elementos desordenados para que solo entre una vez al if
+    lista = [1,2,3,4,5,7,6,8,9,10]
+    sortBurbuja(lista)
+    l_copy = lista.copy()
+    l_copy.sort()
+    assert lista == l_copy, "Las listas deben ser iguales. Falló el algortimo para una lista con dos elementos desordenados"
+    #Misma prueba con una lista con solo dos elementos desordenados para que solo entre una vez al if.
+    #De mayor a menor
+    lista = [10,9,8,7,5,6,4,3,2,1]
+    sortBurbuja(lista, orden=1)
+    l_copy = lista.copy()
+    l_copy.sort(reverse=True)
+    assert lista == l_copy, "Las listas deben ser iguales. Falló el algortimo para una lista con dos elementos desordenados en forma inversa"
+    #Lista totalmente ordenada que nunca entra en las codiciones
+    #de ordenamiento pero sí en los ciclos
+    lista = [78,101,106,115,123,178]
+    sortBurbuja(lista)
+    l_copy = lista.copy()
+    l_copy.sort()
+    assert lista == l_copy, "Las listas deben ser iguales. Falló el algortimo para una lista totalmente ordenada"
+    #Lista totalmente ordenada en sentido inverso que nunca entra en las codiciones
+    #de ordenamiento pero sí en los ciclos
+    lista = [78,101,106,115,123,178]
+    sortBurbuja(lista)
+    l_copy = lista.copy()
+    l_copy.sort()
+    assert lista == l_copy, "Las listas deben ser iguales. Falló el algortimo para una lista ordenada en sentido inverso"
+    
 # hacer_prueba_caja_negra_burbuja()
 #hacer_prueba_caja_negra_seleccion()
+#pruebas_caja_blanca_burbuja()
 
