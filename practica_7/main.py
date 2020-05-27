@@ -17,7 +17,7 @@ def popup_msg(msg):
     pop_up.wm_title("Error")
     label = ttk.Label(pop_up, text=msg, font=("Helvetica",12))
     label.pack(side="top", fill="x", pady=10)
-    exit_button = ttk.Button(pop_up, text="Aceptar", command=pop_up.destroy)
+    exit_button = Button(pop_up, text="Aceptar", command=pop_up.destroy)
     exit_button.pack()
     pop_up.mainloop()
 
